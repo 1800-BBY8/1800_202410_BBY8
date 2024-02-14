@@ -14,3 +14,13 @@
 	margin: 0;
 	padding: 0;
 }
+
+.btn.btn-outline-primary {
+background-color: var(--satin-sheen-gold);
+color: var(--black);
+}
+
+.btn.btn-outline-secondary {
+background-color: var(--satin-sheen-gold);
+color: var(--black);
+}
