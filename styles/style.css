@@ -24,3 +24,7 @@ color: var(--black);
 background-color: var(--satin-sheen-gold);
 color: var(--black);
 }
+
+.menu-buttons > div {
+	margin-bottom: 10px
+}
