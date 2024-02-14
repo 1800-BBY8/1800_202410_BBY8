@@ -26,5 +26,10 @@ color: var(--black);
 }
 
 .menu-buttons > div {
-	margin-bottom: 10px
+	margin-bottom: 10px;
+}
+
+.menu-buttons {
+	align-items: center;
+	text-align: center;
 }
