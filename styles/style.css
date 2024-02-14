@@ -1,3 +1,12 @@
+/* Mr. Listr Theme */
+:root {
+	--black: #06070eff;
+	--honeydew: #effbefff;
+	--satin-sheen-gold: #cca43bff;
+	--cadet-gray: #93a3bcff;
+	--ebony: #5a6650ff;
+}
+
 *,
 *::after,
 *::before {
