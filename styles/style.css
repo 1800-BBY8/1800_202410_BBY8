@@ -14,3 +14,31 @@
 	margin: 0;
 	padding: 0;
 }
+
+html,
+body {
+	font-family: 'Roboto Mono', monospace;
+	font-optical-sizing: auto;
+	font-style: normal;
+	height: 100%;
+}
+
+.footer {
+	background-color: var(--black);
+	color: var(--honeydew);
+}
+
+#interactive-footer {
+	height: auto;
+	cursor: pointer;
+	transition-property: all;
+	transition-duration: 300ms;
+	transition-timing-function: ease;
+	z-index: 999;
+
+	transform: translateY(calc(100% - 65px));
+}
+
+#interactive-footer.active {
+	transform: translateY(0);
+}
