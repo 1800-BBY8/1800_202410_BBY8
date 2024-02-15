@@ -1,42 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Mr. Listr</title>
-		<meta name="description" content="Your one stop shop buddy." />
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <title>Mr. Listr</title>
+    <meta name="description" content="Your one stop shop buddy." />
+    <!-- Bootstrap Library CSS CDN go here -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Boostrap Library JS CDN  go here -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
-		<!-- Required meta tags -->
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Other libraries go here -->
 
-		<!-- Bootstrap Library CSS CDN go here -->
-		<link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
-			integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-			crossorigin="anonymous"
-		/>
+    <!-- Link to styles of your own -->
+     <link rel="stylesheet" href="./styles/style.css" />
+</head>
 
-		<!-- Boostrap Library JS CDN  go here -->
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
-			integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-			crossorigin="anonymous"
-		></script>
+<body>
+    <!------------------------------>
+    <!-- Your HTML Layout go here -->
+    <!------------------------------>
+    <!-- Stuff for body goes here -->
 
-		<!-- Other libraries go here -->
+    <div class="d-flex min-vh-100" lc-helper="background" style="background:url(https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)  center / cover no-repeat; background-color:#444; background-blend-mode: overlay;">
+        <div class="align-self-center text-center text-light col-md-8 offset-md-2">
+            <div class="lc-block mb-4">
+                <div editable="rich">
+                    <h1 class="display-1 fw-bolder">WELCOME TO MR LISTR</h1>
+                </div>
+            </div>
 
-		<!-- Link to styles of your own -->
-		<link rel="stylesheet" href="./styles/style.css" />
-	</head>
+            <div class="lc-block">
+                <div editable="rich">
+                   <h2><p class="lead"><b>Your one and only grocery buddy!</b></p></h2>
 
-	<body>
-		<!------------------------------>
-		<!-- Your HTML Layout go here -->
-		<!------------------------------>
-		<!-- Stuff for body goes here -->
+                    <button style="background-color:#cca43bff" type="button" class="btn btn-secondary btn-lg">Login/Register</button>
 
-		<!---------------------------------------------->
-		<!-- Your own JavaScript functions go here    -->
-		<!---------------------------------------------->
-	</body>
+                </div>
+            </div>
+
+           
+                <!-- for Safari support only, remove if you want  -->
+                <script async="" src="https://unpkg.com/smoothscroll-polyfill/dist/smoothscroll.min.js"></script>
+            </div>
+        </div>
+    </div>
+
+    <!-- <footer></footer> -->
+
+    <!---------------------------------------------->
+    <!-- Your own JavaScript functions go here    -->
+    <!---------------------------------------------->
+</body>
+
 </html>

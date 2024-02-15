@@ -42,3 +42,7 @@ body {
 #interactive-footer.active {
 	transform: translateY(0);
 }
+
+#Hero {
+	background-color: #cca43bff;
+}
