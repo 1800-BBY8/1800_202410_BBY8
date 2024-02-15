@@ -15,21 +15,6 @@
 	padding: 0;
 }
 
-.btn.btn-outline-primary {
-background-color: var(--satin-sheen-gold);
-color: var(--black);
-}
-
-.btn.btn-outline-secondary {
-background-color: var(--satin-sheen-gold);
-color: var(--black);
-}
-
-.menu-buttons > div {
-	margin-bottom: 10px;
-}
-
-.menu-buttons {
-	align-items: center;
-	text-align: center;
+#Hero {
+    background-color: #cca43bff;
 }
