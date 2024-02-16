@@ -29,17 +29,20 @@ body {
 }
 
 #interactive-footer {
-	height: auto;
+	max-height: 75%;
 	cursor: pointer;
+
 	transition-property: all;
 	transition-duration: 300ms;
 	transition-timing-function: ease;
-	z-index: 999;
 
-	transform: translateY(calc(100% - 65px));
+	overflow: hidden;
+	transform: translateY(calc(100% - 60px));
+	z-index: 999;
 }
 
 #interactive-footer.active {
+	overflow-y: auto;
 	transform: translateY(0);
 }
 
