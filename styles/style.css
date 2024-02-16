@@ -35,3 +35,41 @@
 	background-color: #9e782dff;
 	outline-color: black;
 }
+html,
+body {
+	font-family: 'Roboto Mono', monospace;
+	font-optical-sizing: auto;
+	font-style: normal;
+	height: 100%;
+}
+
+.footer {
+	background-color: var(--black);
+	color: var(--honeydew);
+}
+
+#interactive-footer {
+	max-height: 75%;
+	cursor: pointer;
+
+	transition-property: all;
+	transition-duration: 300ms;
+	transition-timing-function: ease;
+
+	overflow: hidden;
+	transform: translateY(calc(100% - 60px));
+	z-index: 999;
+}
+
+#interactive-footer.active {
+	overflow-y: auto;
+	transform: translateY(0);
+}
+#Hero {
+	background-color: #cca43bff;
+}
+
+
+#Hero {
+    background-color: #cca43bff;
+}
