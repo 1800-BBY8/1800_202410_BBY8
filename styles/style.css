@@ -5,6 +5,7 @@
 	--satin-sheen-gold: #cca43bff;
 	--cadet-gray: #93a3bcff;
 	--ebony: #5a6650ff;
+	--darker-satin-sheen-gold: #9e782dff;
 }
 
 *,
@@ -15,6 +16,25 @@
 	padding: 0;
 }
 
+.Main-Page-Buttons {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+
+}
+
+.Main-Page-Buttons button {
+	background-color: var(--satin-sheen-gold);
+	outline-color: black;
+	margin-bottom: 15px;
+
+}
+
+.Main-Page-Buttons button:hover {
+	background-color: #9e782dff;
+	outline-color: black;
+}
 html,
 body {
 	font-family: 'Roboto Mono', monospace;
@@ -44,7 +64,11 @@ body {
 	overflow-y: auto;
 	transform: translateY(0);
 }
-
 #Hero {
 	background-color: #cca43bff;
+}
+
+
+#Hero {
+    background-color: #cca43bff;
 }
