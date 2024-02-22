@@ -45,32 +45,3 @@ body {
 	overflow-y: auto;
 	transform: translateY(0);
 }
-
-.main {
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-}
-
-.jumbotron {
-	width: 100%;
-	background-color: #f8f9fa;
-	padding: 50px;
-	border-radius: 15px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.jumbotron .btn {
-	background-color: var(--satin-sheen-gold);
-	outline-color: black;
-	margin-bottom: 15px;
-}
-
-.jumbotron .btn:hover {
-	background-color: #9e782dff;
-	outline-color: black;
-}
