@@ -9,8 +9,7 @@ const toggle = (force) => {
 window.addEventListener(
 	'click',
 	(e) => {
-		if (e.target === footer) toggle();
-		else if (e.target.parentNode === footer) toggle();
+		if (e.target === footer || e.target.parentNode === footer) toggle();
 		else if (footer.contains(e.target)) toggle(true);
 		else toggle(false);
 	},
