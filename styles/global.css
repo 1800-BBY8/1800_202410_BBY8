@@ -6,6 +6,8 @@
 	--cadet-gray: #93a3bcff;
 	--ebony: #5a6650ff;
 	--darker-satin-sheen-gold: #9e782dff;
+	--white: #e5e5e5;
+	--white-2: #d5d5d5;
 }
 
 *,
@@ -16,8 +18,8 @@
 	padding: 0;
 }
 
-.body {
-	background-color: var(--honeydew);
+body {
+	background-color: var(--white);
 }
 
 html,
@@ -48,4 +50,45 @@ body {
 #interactive-footer.active {
 	overflow-y: auto;
 	transform: translateY(0);
+}
+
+.btn-primary {
+	background-color: var(--ebony);
+	color: var(--honeydew);
+	border-color: var(--black);
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited {
+	background-color: var(--ebony) !important;
+	filter: brightness(0.8);
+}
+
+.btn-primary:active,
+.btn-outline-primary:active {
+	transform: scale(0.95);
+}
+
+.btn-outline-primary {
+	border-color: var(--black);
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:active,
+.btn-outline-primary:visited {
+	background-color: var(--ebony) !important;
+	border-color: var(--black) !important;
+}
+
+.bg-primary {
+	background-color: var(--white) !important;
+}
+
+.bg-primary-subtle {
+	background-color: var(--white-2) !important;
+}
+
+.accordion-button:not(.collapsed) {
+	background-color: var(--white) !important;
 }

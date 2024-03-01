@@ -28,10 +28,10 @@
 		<link rel="stylesheet" href="./styles/global.css" />
 	</head>
 
-	<body>
+	<body class="h-100">
 		<nav class="navbar navbar-dark bg-dark fixed-top">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="/">Mr. Listr</a>
+				<a class="navbar-brand" href="/">Mr. Listr | My Lists</a>
 				<button
 					class="navbar-toggler"
 					type="button"
@@ -84,5 +84,75 @@
 				</div>
 			</div>
 		</nav>
+
+		<div class="container p-3 pt-5 mt-5 w-100 h-100 d-flex flex-column align-items-center">
+			<!-- If user has no lists -->
+			<div class="text-center d-none">
+				<p>You do not have any lists.</p>
+				<button class="btn btn-primary">+ Add a list</button>
+			</div>
+
+			<!-- If you do have lists -->
+			<div class="input-group shadow-sm mb-3">
+				<span class="input-group-text border-1 border-black">🔍</span>
+				<input
+					type="text"
+					class="form-control border-1 border-black"
+					id="list-search"
+					name="list-search"
+					placeholder="Search your lists"
+				/>
+				<button class="btn btn-primary" type="button">+ Add</button>
+			</div>
+
+			<div class="w-100 d-flex flex-column gap-2">
+				<div class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2">
+					<div class="w-100 flex-grow-1">
+						<div
+							class="d-flex align-items-center justify-content-between justify-content-md-start gap-3 mb-2"
+						>
+							<p class="mb-0 fw-bold fs-5">Weekly</p>
+							<div
+								class="bg-success-subtle p-2 text-center rounded-2 border border-dark-subtle"
+							>
+								<p class="mb-0 small">4 Items</p>
+							</div>
+						</div>
+						<p class="mb-0">These are the items I will buy every week.</p>
+					</div>
+					<button class="ms-auto btn fs-1">➡️</button>
+				</div>
+				<div class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2">
+					<div class="w-100 flex-grow-1">
+						<div
+							class="d-flex align-items-center justify-content-between justify-content-md-start gap-3 mb-2"
+						>
+							<p class="mb-0 fw-bold fs-5">Gifts</p>
+							<div class="bg-primary p-2 text-center rounded-2 border border-dark-subtle">
+								<p class="mb-0 small">13 Items</p>
+							</div>
+						</div>
+						<p class="mb-0">The gifts I want to buy for upcoming holidays and birthdays.</p>
+					</div>
+					<button class="ms-auto btn fs-1">➡️</button>
+				</div>
+				<div class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2">
+					<div class="w-100 flex-grow-1">
+						<div
+							class="d-flex align-items-center justify-content-between justify-content-md-start gap-3 mb-2"
+						>
+							<p class="mb-0 fw-bold fs-5">Full Costco</p>
+							<div class="bg-primary p-2 text-center rounded-2 border border-dark-subtle">
+								<p class="mb-0 small">342 Items</p>
+							</div>
+						</div>
+						<p class="mb-0">
+							My comprehensive month end shopping list, which includes all household items.
+						</p>
+					</div>
+					<button class="ms-auto btn fs-1">➡️</button>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
