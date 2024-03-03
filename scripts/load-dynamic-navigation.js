@@ -1,13 +1,3 @@
-async function getSkeleton() {
-	const html = fetch('/skeletons/navigation.xml');
-
-	const el = document.createElement('object');
-	el.type = 'text/xml';
-	el.data = './skeletons/navigation.xml';
-
-	return el;
-}
-
 function fillDynamicsInNavigation(el) {
 	const path = window.location.pathname;
 
@@ -15,7 +5,6 @@ function fillDynamicsInNavigation(el) {
 	if (titleEl) titleEl.innerText = document.title;
 
 	const activeA = el.querySelector(`a[href="${location.pathname}"].nav-link`);
-	console.log(location.pathname, activeA);
 	if (activeA) activeA.classList.add('active');
 }
 
