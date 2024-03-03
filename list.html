@@ -30,5 +30,91 @@
 	<body>
 		<div id="navigation-placeholder"></div>
 		<script src="./scripts/load-dynamic-navigation.js"></script>
+
+		<div class="container p-3 pt-5 mt-5 w-100 h-100 d-flex flex-column align-items-center">
+			<!-- If user has no items on this list -->
+			<div class="text-center d-none">
+				<p>There are no items on this list... yet.</p>
+				<button class="btn btn-primary">+ Add an item</button>
+			</div>
+
+			<div class="container w-100 p-3 bg-primary-subtle mb-3 rounded-2">
+				<h3>Weekly List</h3>
+				<p class="mb-0">These are items I will buy every week.</p>
+				<hr class="hr hr-blurry" />
+				<div class="d-flex gap-2">
+					<div class="bg-primary small p-2 text-center rounded-2 border border-dark-subtle">
+						<p class="mb-0 small">4 Items</p>
+					</div>
+					<div class="bg-primary small p-2 text-center rounded-2 border border-dark-subtle">
+						<p class="mb-0 small">Last Trip: 2 Days Ago</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- If the user has items on this list -->
+			<div class="input-group shadow-sm mb-3">
+				<span class="input-group-text border-1 border-black">🔍</span>
+				<input
+					type="text"
+					class="form-control border-1 border-black"
+					id="items-search"
+					name="items-search"
+					placeholder="Search this list"
+				/>
+				<button class="btn btn-primary" type="button">+ Add</button>
+			</div>
+
+			<div class="w-100 d-flex flex-column gap-2 pb-4 mb">
+				<div
+					class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2 align-items-center"
+				>
+					<div class="flex-grow-1">
+						<p class="mb-0 fw-bold fs-5">Milk</p>
+					</div>
+					<div class="bg-primary p-2 text-center rounded-2 border border-dark-subtle">
+						<p class="mb-0 small">x2</p>
+					</div>
+				</div>
+				<div
+					class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2 align-items-center"
+				>
+					<div class="flex-grow-1">
+						<p class="mb-0 fw-bold fs-5">Eggs</p>
+					</div>
+					<div class="bg-primary p-2 text-center rounded-2 border border-dark-subtle">
+						<p class="mb-0 small">x12</p>
+					</div>
+				</div>
+				<div
+					class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2 align-items-center"
+				>
+					<div class="flex-grow-1">
+						<p class="mb-0 fw-bold fs-5">Butter</p>
+					</div>
+					<div class="bg-primary p-2 text-center rounded-2 border border-dark-subtle">
+						<p class="mb-0 small">x2</p>
+					</div>
+				</div>
+				<div
+					class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2 align-items-center"
+				>
+					<div class="flex-grow-1">
+						<p class="mb-0 fw-bold fs-5">Chocolate</p>
+					</div>
+					<div class="bg-primary p-2 text-center rounded-2 border border-dark-subtle">
+						<p class="mb-0 small">x1</p>
+					</div>
+				</div>
+			</div>
+
+			<div
+				class="container w-100 bg-primary-subtle position-sticky mt-auto sticky-bottom p-3 rounded-top-2 border border-black d-flex gap-2"
+			>
+				<button class="btn btn-primary">Start Shopping</button>
+				<button class="btn btn-primary">Configure List</button>
+				<button class="btn btn-secondary ms-auto">☰</button>
+			</div>
+		</div>
 	</body>
 </html>
