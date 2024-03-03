@@ -29,61 +29,8 @@
 	</head>
 
 	<body class="h-100">
-		<nav class="navbar navbar-dark bg-dark fixed-top">
-			<div class="container-fluid">
-				<a class="navbar-brand" href="/">Mr. Listr | My Lists</a>
-				<button
-					class="navbar-toggler"
-					type="button"
-					data-bs-toggle="offcanvas"
-					data-bs-target="#offcanvasDarkNavbar"
-					aria-controls="offcanvasDarkNavbar"
-				>
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div
-					class="offcanvas offcanvas-end text-bg-dark"
-					tabindex="-1"
-					id="offcanvasDarkNavbar"
-					aria-labelledby="offcanvasDarkNavbarLabel"
-				>
-					<div class="offcanvas-header">
-						<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Options</h5>
-						<button
-							type="button"
-							class="btn-close btn-close-white"
-							data-bs-dismiss="offcanvas"
-							aria-label="Close"
-						></button>
-					</div>
-					<div class="offcanvas-body">
-						<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-							<li class="nav-item">
-								<a class="nav-link" aria-current="page" href="/main.html">Home</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="/account.html">Account</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link active" href="/lists.html">My Lists</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="/items.html">My Items</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="/insights.html">Insights</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="/faqs.html">FAQ's</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="/contact.html">Contact us</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</nav>
+		<div id="navigation-placeholder"></div>
+		<script src="./scripts/load-dynamic-navigation.js"></script>
 
 		<div class="container p-3 pt-5 mt-5 w-100 h-100 d-flex flex-column align-items-center">
 			<!-- If user has no lists -->
