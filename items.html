@@ -31,61 +31,112 @@
     <link rel="stylesheet" href="./styles/contact.css" />
     <link rel="stylesheet" href="./styles/global.css" />
     <link rel="stylesheet" href="./styles/main.css" />
+
+
+
+
+
 </head>
 
-<body>
-
-    <nav class="navbar navbar-dark bg-dark fixed-top">
-          <div class="container-fluid">
-              <a class="navbar-brand" href="#">Mr. Listr</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                  data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
-                  <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
-                  aria-labelledby="offcanvasDarkNavbarLabel">
-                  <div class="offcanvas-header">
-                      <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Options</h5>
-                      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-                          aria-label="Close"></button>
-                  </div>
-                  <div class="offcanvas-body">
-                      <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                          <li class="nav-item">
-                              <a class="nav-link active" aria-current="page" href="#">Home</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">Account</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">My Lists</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">My Items</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">Insights</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">FAQ's</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">Contact us</a>
-                          </li>
-          </div>
-              </div>
-          </div>
-      </nav>
-
-     
 
 
+<body class="h-100">
+    <div id="navigation-placeholder"></div>
+    <script src="./scripts/load-dynamic-navigation.js"></script>
+
+    <div class="container p-3 pt-5 mt-5 w-100 h-100 d-flex flex-column align-items-center">
+        <!-- If user has no lists -->
+        <div class="text-center d-none">
+            <p>You do not have any items.</p>
+            <button class="btn btn-primary">+ Add an item</button>
+        </div>
+
+        <!-- If user has lists -->
+        <div class="input-group shadow-sm mb-3">
+            <span class="input-group-text border-1 border-black">🔍</span>
+            <input type="text" class="form-control border-1 border-black" id="list-search" name="list-search"
+                placeholder="Search your items" />
+            <button class="btn btn-primary" type="button">Search</button>
+        </div>
 
 
-      
+        <button type="button" style="margin-bottom: 15px;" class="btn btn-outline-secondary">+ Add New Items</button>
+
+        <div class="w-100 d-flex flex-column gap-2 pb-4">
+            <div class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2">
+                <div class="w-100 flex-grow-1">
+                    <div class="d-flex align-items-center justify-content-between justify-content-md-start gap-3 mb-2">
+                        <p class="mb-0 fw-bold fs-5">Ribeye Steak</p>
+                    </div>
+                    <p class="mb-0">These are the items I will buy every week.</p>
+                </div>
+                <a class="ms-auto btn fs-1">❤</a>
+            </div>
+            <div class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2">
+                <div class="w-100 flex-grow-1">
+                    <div class="d-flex align-items-center justify-content-between justify-content-md-start gap-3 mb-2">
+                        <p class="mb-0 fw-bold fs-5">Ground Beef</p>
+                    </div>
+                    <p class="mb-0">These are the items I will buy every week.</p>
+                </div>
+                <a href="" class="ms-auto btn fs-1">❤</a>
+            </div>
+            <div class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2">
+                <div class="w-100 flex-grow-1">
+                    <div class="d-flex align-items-center justify-content-between justify-content-md-start gap-3 mb-2">
+                        <p class="mb-0 fw-bold fs-5">Rice</p>
+                    </div>
+                    <p class="mb-0">
+                        These are the items I will buy every week.
+                    </p>
+                </div>
+                <a href="" class="ms-auto btn fs-1">❤</a>
+            </div>
+            <div class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2">
+                <div class="w-100 flex-grow-1">
+                    <div class="d-flex align-items-center justify-content-between justify-content-md-start gap-3 mb-2">
+                        <p class="mb-0 fw-bold fs-5">Eggs</p>
+                    </div>
+                    <p class="mb-0">These are the items I will buy every week.</p>
+                </div>
+                <a href="" class="ms-auto btn fs-1">❤</a>
+            </div>
+            <div class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2">
+                <div class="w-100 flex-grow-1">
+                    <div class="d-flex align-items-center justify-content-between justify-content-md-start gap-3 mb-2">
+                        <p class="mb-0 fw-bold fs-5">Milk</p>
+                    </div>
+                    <p class="mb-0">These are the items I will buy every week.</p>
+                </div>
+                <a href="" class="ms-auto btn fs-1">❤</a>
+            </div>
+        <div class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2">
+            <div class="w-100 flex-grow-1">
+                <div class="d-flex align-items-center justify-content-between justify-content-md-start gap-3 mb-2">
+                    <p class="mb-0 fw-bold fs-5">Pasta</p>
+                </div>
+                <p class="mb-0">These are the items I will buy every week.</p>
+            </div>
+            <a href="" class="ms-auto btn fs-1">❤</a>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</body>
+
+</html>
 
 
 
 
 
-      </body>
+
+
+
+
+
+
+
+</body>

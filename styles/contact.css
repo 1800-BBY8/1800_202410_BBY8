@@ -11,3 +11,7 @@
 .contactcontainer h2 {
     font-size: 40px;
 }
+
+.btn btn-outline-secondary {
+    margin-bottom: 20px;
+}
