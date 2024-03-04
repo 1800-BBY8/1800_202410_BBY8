@@ -1,0 +1,9 @@
+/** Style for the login page. */
+
+#authentication {
+    margin: auto;
+    width: 50%;
+
+    padding: 10px;
+    text-align: center;
+}
