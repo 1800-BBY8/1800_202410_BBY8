@@ -21,7 +21,7 @@ function createList(submitEvent) {
 		}
 
 		const item = key.split('_')[1];
-		items.push({ amount: quantity, item });
+		items.push({ quantity: quantity, item });
 	}
 
 	console.log(name, desc, items);
@@ -60,28 +60,28 @@ async function addItem(itemId) {
 	const name = frag.querySelector('.template-name');
 	name.innerText = data.name;
 
-	const amnt = frag.querySelector('.template-amount');
-	amnt.innerText = 1;
+	const qt = frag.querySelector('.template-quantity');
+	qt.innerText = 1;
 
-	const getAmount = () => {
-		const current = parseInt(amnt.innerText);
+	const getQuantity = () => {
+		const current = parseInt(qt.innerText);
 		if (isNaN(current)) return 1;
 		else return current;
 	};
 
-	const changeAmountBy = (change) => {
-		const newAmount = Math.min(999, Math.max(1, getAmount() + change));
-		amnt.innerText = newAmount;
-		tracker.value = newAmount;
+	const changeQuantity = (change) => {
+		const newquantity = Math.min(999, Math.max(1, getQuantity() + change));
+		qt.innerText = newquantity;
+		tracker.value = newquantity;
 	};
 
-	changeAmountBy(0);
+	changeQuantity(0);
 
-	const decrButton = frag.querySelector('.template-amount-decrement');
-	decrButton.addEventListener('click', () => changeAmountBy(-1));
+	const decrButton = frag.querySelector('.template-quantity-decrement');
+	decrButton.addEventListener('click', () => changeQuantity(-1));
 
-	const incrButton = frag.querySelector('.template-amount-increment');
-	incrButton.addEventListener('click', () => changeAmountBy(1));
+	const incrButton = frag.querySelector('.template-quantity-increment');
+	incrButton.addEventListener('click', () => changeQuantity(1));
 
 	const deleteButton = frag.querySelector('.template-delete');
 	deleteButton.addEventListener('click', () => tracker.parentNode.remove());

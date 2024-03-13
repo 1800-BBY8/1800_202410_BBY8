@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Mr. Listr - Create a List</title>
+		<title>Mr. Listr - Edit a List</title>
 		<meta name="description" content="Your one stop shop buddy." />
 
 		<!-- Required meta tags -->
@@ -37,7 +37,7 @@
 		<script src="/scripts/load-dynamic-navigation.js"></script>
 
 		<div class="container p-3 pt-5 mt-5 w-100 h-100">
-			<form id="create-list-form" class="pb-5">
+			<form id="edit-list-form" class="pb-5">
 				<div class="mb-3">
 					<label for="list-name" class="form-label"
 						><span class="text-danger">*</span> List Name</label
@@ -98,12 +98,12 @@
 
 				<hr />
 
-				<input type="submit" class="btn btn-success" value="Create List" />
+				<input type="submit" class="btn btn-success" value="Save Changes" />
 				<input type="button" class="btn btn-primary" onclick="addItem('1')" value="Add Item" />
 			</form>
 		</div>
 
 		<script src="/scripts/firebaseAPI_BBY8.js"></script>
-		<script src="/scripts/create-list.js"></script>
+		<script src="/scripts/edit-list.js"></script>
 	</body>
 </html>

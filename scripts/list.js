@@ -8,5 +8,7 @@ function exit() {
 
 if (Number.isNaN(id)) exit();
 else {
+	document.getElementById('configure-list-link').href = `/lists/edit.html?id=${id}`;
+
 	// TODO display list items
 }
