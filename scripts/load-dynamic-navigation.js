@@ -12,7 +12,7 @@ function fillDynamicsInNavigation(el) {
 	const container = document.getElementById('navigation-placeholder');
 	if (!container) return console.warn('Dynamic navigation script loaded, but no placeholder found.');
 
-	await fetch('/skeletons/navigation.xml')
+	await fetch('/scripts/skeletons/navigation.xml')
 		.then((v) => v.text())
 		.then((v) => {
 			const next = container.nextElementSibling;

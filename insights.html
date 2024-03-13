@@ -25,29 +25,33 @@
 		></script>
 
 		<!-- Link to styles of your own -->
-		<link rel="stylesheet" href="./styles/global.css" />
+		<link rel="stylesheet" href="/styles/global.css" />
 	</head>
 
 	<body class="h-100">
 		<div id="navigation-placeholder"></div>
-		<script src="./scripts/load-dynamic-navigation.js"></script>
+		<script src="/scripts/load-dynamic-navigation.js"></script>
 
 		<div class="container p-3 pt-5 mt-5 w-100 h-100 d-flex flex-column align-items-center">
-			
-
 			<!-- Adding charts https://mdbootstrap.com/docs/b4/jquery/javascript/charts/ -->
-			
-			<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-				<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-				<label class="btn btn-outline-primary" for="btnradio1">Weekly</label>
-			  
-				<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-				<label class="btn btn-outline-primary" for="btnradio2">Monthly</label>
-			  
-				<input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-				<label class="btn btn-outline-primary" for="btnradio3">All Time</label>
-			  </div>
 
+			<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+				<input
+					type="radio"
+					class="btn-check"
+					name="btnradio"
+					id="btnradio1"
+					autocomplete="off"
+					checked
+				/>
+				<label class="btn btn-outline-primary" for="btnradio1">Weekly</label>
+
+				<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" />
+				<label class="btn btn-outline-primary" for="btnradio2">Monthly</label>
+
+				<input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" />
+				<label class="btn btn-outline-primary" for="btnradio3">All Time</label>
+			</div>
 
 			<div class="w-100 d-flex flex-column gap-2 pb-4">
 				<div class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2">
@@ -81,14 +85,11 @@
 						>
 							<p class="mb-0 fw-bold fs-5">Overall Spending</p>
 						</div>
-						<p class="mb-0">
-							Overall money spent from each list.
-						</p>
+						<p class="mb-0">Overall money spent from each list.</p>
 					</div>
 					<a href="" class="ms-auto btn fs-1">➡️</a>
 				</div>
 			</div>
-
 		</div>
 	</body>
 </html>

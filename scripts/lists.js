@@ -125,7 +125,9 @@ function generateListElements(allListData) {
 		desc.innerText = listData.description;
 
 		const link = frag.querySelector('.template-link');
-		link.href = `/list.html?id=${listData.id}`;
+		const url = new URL(window.location.origin + link.href);
+		url.searchParams.append('id', listData.id);
+		link.href = url.pathname + url.search;
 
 		return frag;
 	};
