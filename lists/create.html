@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Mr. Listr - Create a List</title>
+		<meta name="description" content="Your one stop shop buddy." />
+
+		<!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- Bootstrap Library CSS CDN go here -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+			crossorigin="anonymous"
+		/>
+
+		<!-- Boostrap Library JS CDN  go here -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+			crossorigin="anonymous"
+		></script>
+
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
+		<!-- Link to styles of your own -->
+		<link rel="stylesheet" href="/styles/global.css" />
+	</head>
+
+	<body>
+		<div id="navigation-placeholder"></div>
+		<script src="/scripts/load-dynamic-navigation.js"></script>
+
+		<div class="container p-3 pt-5 mt-5 w-100 h-100">
+			<form id="create-list-form" class="pb-5">
+				<div class="mb-3">
+					<label for="list-name" class="form-label"
+						><span class="text-danger">*</span> List Name</label
+					>
+					<input
+						type="text"
+						required
+						class="form-control"
+						id="list-name"
+						name="list-name"
+						placeholder="Enter a descriptive name for your list."
+					/>
+				</div>
+
+				<div class="mb-3">
+					<label for="list-desc" class="form-label">List Description</label>
+					<textarea
+						class="form-control"
+						rows="4"
+						id="list-desc"
+						name="list-desc"
+						placeholder="Enter any further description of your list."
+					></textarea>
+				</div>
+
+				<div class="mb-3">
+					<p class="form-label">Initial Items</p>
+					<div class="d-flex flex-column w-100 gap-3" id="initial-items-container">
+						<template id="initial-item-template">
+							<div
+								class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2 align-items-center"
+							>
+								<div class="flex-grow-1">
+									<p class="mb-0 fw-bold fs-5 template-name">Item Name</p>
+								</div>
+								<div class="d-flex gap-2">
+									<input
+										type="button"
+										class="btn btn-outline-secondary template-amount-decrement"
+										value="-"
+									/>
+									<div
+										class="bg-primary p-2 text-center rounded-2 border border-dark-subtle"
+									>
+										<p class="mb-0 small">x<span class="template-amount">1</span></p>
+									</div>
+									<input
+										type="button"
+										class="btn btn-outline-secondary template-amount-increment"
+										value="+"
+									/>
+									<input type="button" class="btn btn-danger template-delete" value="🗑️" />
+								</div>
+							</div>
+						</template>
+					</div>
+				</div>
+
+				<hr />
+
+				<input type="submit" class="btn btn-success" value="Create List" />
+				<input type="button" class="btn btn-primary" onclick="addItem('1')" value="Add Item" />
+			</form>
+		</div>
+
+		<script src="/scripts/firebaseAPI_BBY8.js"></script>
+		<script src="/scripts/create-list.js"></script>
+	</body>
+</html>

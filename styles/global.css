@@ -65,12 +65,11 @@ body {
 	filter: brightness(0.8);
 }
 
-.btn-primary:active,
-.btn-outline-primary:active {
+.btn:active {
 	transform: scale(0.95);
 }
 
-.btn-outline-primary {
+.btn {
 	border-color: var(--black);
 }
 
