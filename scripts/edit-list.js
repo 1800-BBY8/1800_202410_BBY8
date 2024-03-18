@@ -32,7 +32,7 @@ async function updateList(submitEvent, listId) {
 	}
 
 	const currentListDocumentRef = currentUserDoc.collection(CollectionKeys.USER_LISTS).doc(`${listId}`);
-	currentListDocumentRef.update({
+	await currentListDocumentRef.update({
 		name,
 		description: desc,
 		items,
@@ -126,17 +126,14 @@ function fillFields(data) {
 }
 
 const params = new URLSearchParams(location.search);
-const id = Number.parseInt(params.get('id'));
+const id = params.get('id');
 
 function exit() {
 	location.assign('/lists');
 }
 
-if (Number.isNaN(id)) exit();
-else {
-	fetchList(id).then((data) => {
-		if (!data) return exit();
-		fillFields(data);
-		form.addEventListener('submit', (e) => updateList(e, id));
-	});
-}
+fetchList(id).then((data) => {
+	if (!data) return exit();
+	fillFields(data);
+	form.addEventListener('submit', (e) => updateList(e, id));
+});

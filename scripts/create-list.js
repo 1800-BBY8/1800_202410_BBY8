@@ -32,7 +32,7 @@ async function createList(submitEvent) {
 	}
 
 	const currentListDocumentRef = currentUserDoc.collection(CollectionKeys.USER_LISTS).doc();
-	currentListDocumentRef.set({
+	await currentListDocumentRef.set({
 		name,
 		description: desc,
 		items,
