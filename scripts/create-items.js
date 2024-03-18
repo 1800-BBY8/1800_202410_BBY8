@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('itemForm');
+    const form = document.getElementById('submit');
     const successMessage = document.getElementById('successMessage');
 
     form.addEventListener('submit', function (e) {

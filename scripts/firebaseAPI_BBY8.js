@@ -32,3 +32,4 @@ function logout() {
 			// An error happened.
 		});
 }
+
