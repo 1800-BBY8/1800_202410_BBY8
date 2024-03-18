@@ -49,8 +49,9 @@ async function fetchList(listId) {
 }
 
 async function fetchItem(itemId) {
-	// TODO fetch item by id
-	return dummyItems[Math.floor(Math.random() * dummyItems.length)];
+	const currentUserDoc = await getCurrentUserDocRef();
+	const itemsCollectionRef = currentUserDoc.collection(CollectionKeys.USER_ITEMS);
+	return await itemsCollectionRef.doc(`${itemId}`).get();
 }
 
 function renderItem(listItem) {

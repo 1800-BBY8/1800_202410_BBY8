@@ -1,5 +1,8 @@
 async function fetchLists() {
-	return [];
+	const userDoc = await getCurrentUserDocRef();
+	const rawLists = await userDoc.collection(CollectionKeys.USER_LISTS).get();
+
+	return rawLists.docs.map((list) => ({ id: list.id, ...list.data() }));
 }
 
 function generateListElements(allListData) {

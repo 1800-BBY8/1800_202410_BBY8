@@ -2,9 +2,13 @@ const template = document.getElementById('initial-item-template');
 const initialItemsContainer = document.getElementById('initial-items-container');
 const form = document.getElementById('create-list-form');
 
-function createList(submitEvent) {
+let submitting = false;
+async function createList(submitEvent) {
 	submitEvent.preventDefault();
+	if (submitting) return;
+	submitting = true;
 
+	const user = await getCurrentUser();
 	const data = new FormData(submitEvent.target);
 
 	const name = data.get('list-name');
@@ -13,6 +17,9 @@ function createList(submitEvent) {
 	data.delete('list-name');
 	data.delete('list-desc');
 
+	const currentUserDoc = await getCurrentUserDocRef();
+	const itemsCollectionRef = currentUserDoc.collection(CollectionKeys.USER_ITEMS);
+
 	const items = [];
 	for (const [key, quantity] of data.entries()) {
 		if (!key.startsWith('item_')) {
@@ -20,19 +27,25 @@ function createList(submitEvent) {
 			continue;
 		}
 
-		const item = key.split('_')[1];
-		items.push({ quantity: quantity, item });
+		const itemId = key.split('_')[1];
+		items.push({ quantity: quantity, item: itemsCollectionRef.doc(itemId) });
 	}
 
-	console.log(name, desc, items);
+	const currentListDocumentRef = currentUserDoc.collection(CollectionKeys.USER_LISTS).doc();
+	currentListDocumentRef.set({
+		name,
+		description: desc,
+		items,
+	});
 
-	// TODO post data to firestore
+	submitting = false;
 	location.assign('/lists');
 }
 
 async function fetchItem(itemId) {
-	// TODO fetch item by id
-	return dummyItems[Math.floor(Math.random() * dummyItems.length)];
+	const currentUserDoc = await getCurrentUserDocRef();
+	const itemsCollectionRef = currentUserDoc.collection(CollectionKeys.USER_ITEMS);
+	return await itemsCollectionRef.doc(`${itemId}`).get();
 }
 
 let adding = false;
