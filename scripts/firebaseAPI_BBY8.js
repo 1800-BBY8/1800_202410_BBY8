@@ -20,6 +20,26 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 const storage = firebase.storage();
 
+const CollectionKeys = {
+	USERS: 'Users',
+	USER_TRIPS: 'Trips',
+	USER_ITEMS: 'Items',
+	USER_LISTS: 'Lists',
+};
+
+const usersCollection = db.collection(CollectionKeys.USERS);
+
+function getCurrentUser() {
+	return new Promise((res) => firebase.auth().onAuthStateChanged((user) => res(user)));
+}
+
+async function getCurrentUserDocRef() {
+	const user = await getCurrentUser();
+	if (!user) return;
+
+	return usersCollection.doc(user.uid);
+}
+
 function logout() {
 	firebase
 		.auth()

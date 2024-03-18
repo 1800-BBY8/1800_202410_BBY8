@@ -31,15 +31,8 @@ function createList(submitEvent) {
 }
 
 async function fetchItem(itemId) {
-	return {
-		name: 'Toilet Paper',
-		description: 'Cottonelle Ultra Comfort',
-		category: 'Household',
-		favorite: true,
-		images: [
-			'https://storage.googleapis.com/images-sofhttps://m.media-amazon.com/images/I/81RA3OuszZL._AC_SL1500_.jpg-prd-9fa6b8b.sof.prd.v8.commerce.mi9cloud.com/product-images/zoom/00068700011009.jpg',
-		],
-	};
+	// TODO fetch item by id
+	return dummyItems[Math.floor(Math.random() * dummyItems.length)];
 }
 
 let adding = false;
