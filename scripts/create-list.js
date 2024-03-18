@@ -17,8 +17,8 @@ async function createList(submitEvent) {
 	data.delete('list-name');
 	data.delete('list-desc');
 
-	const currentUserDoc = await getCurrentUserDocRef();
-	const itemsCollectionRef = currentUserDoc.collection(CollectionKeys.USER_ITEMS);
+	const currentUserDocRef = await getCurrentUserDocRef();
+	const itemsCollectionRef = currentUserDocRef.collection(CollectionKeys.USER_ITEMS);
 
 	const items = [];
 	for (const [key, quantity] of data.entries()) {
@@ -31,7 +31,7 @@ async function createList(submitEvent) {
 		items.push({ quantity: quantity, item: itemsCollectionRef.doc(itemId) });
 	}
 
-	const currentListDocumentRef = currentUserDoc.collection(CollectionKeys.USER_LISTS).doc();
+	const currentListDocumentRef = currentUserDocRef.collection(CollectionKeys.USER_LISTS).doc();
 	await currentListDocumentRef.set({
 		name,
 		description: desc,
