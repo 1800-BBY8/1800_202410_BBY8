@@ -2,7 +2,9 @@
 <html lang="en">
 
 <head>
-    <title>Mr. Listr - My Items</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mr Listr - My Items</title>
     <meta name="description" content="Your one stop shop buddy." />
     <!-- Bootstrap Library CSS CDN go here -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -31,45 +33,51 @@
     <link rel="stylesheet" href="/styles/contact.css" />
     <link rel="stylesheet" href="/styles/global.css" />
     <link rel="stylesheet" href="/styles/main.css" />
+    </head>
 
-
-</head>
-
-
-<body class="h-100">
+<body>
     <div id="navigation-placeholder"></div>
     <script src="/scripts/load-dynamic-navigation.js"></script>
+    <br>
 
-    <div class="container p-3 pt-5 mt-5 w-100 h-100 d-flex flex-column align-items-center">
-        <div class="input-group shadow-sm mb-3">
-            <span class="input-group-text border-1 border-black">🔍</span>
-            <input type="text" class="form-control border-1 border-black" id="list-search" name="list-search"
-                placeholder="Search your items" />
-            <button class="btn btn-primary" type="button">Search</button>
-        </div>
-
-        <div>
-            <a href="/items/create_items.html" class="d-inline-block me-3">
-                <button class="btn btn-primary">+ Add an item</button>
-            </a>
-            <a href="/items/del_items.html" class="d-inline-block">
-                <button class="btn btn-primary">Manage items</button>
-            </a>
-        </div>
-        <br>
-          <!-- Placeholder for empty item list -->
-        <div id="empty-list-placeholder" class="text-muted">Item List is currently empty...</div>
-
-        <div id="items-container" class="w-100 d-flex flex-column gap-2 pb-4">
-            <!-- Firebase Items go here -->
-        </div>
+    <div class="container mt-5">
+        <h2>Edit Your Items</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example items, replace with dynamically generated items -->
+                <tr>
+                    <td>Item 1</td>
+                    <td>Category A</td>
+                    <td>Description for Item 1</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm edit-btn">Edit</button>
+                        <button class="btn btn-danger btn-sm delete-btn">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Item 2</td>
+                    <td>Category B</td>
+                    <td>Description for Item 2</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm edit-btn">Edit</button>
+                        <button class="btn btn-danger btn-sm delete-btn">Delete</button>
+                    </td>
+                </tr>
+                <!-- End of example items -->
+            </tbody>
+        </table>
     </div>
 
+    <script src="/scripts/del_items.js"></script>
     <script src="/scripts/firebaseAPI_BBY8.js"></script>
-    <script src="/scripts/create-items.js"></script>
 </body>
-
-
-
 
 </html>
