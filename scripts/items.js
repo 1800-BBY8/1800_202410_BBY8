@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         itemCard.classList.add('card');
                         itemCard.innerHTML = `
                             <div class="card-body">
-                                <h5 class="card-title">${itemData.itemName}${itemData.isFavorite ? ' 💖' : ''}</h5>
+                                <h5 class="card-title">${itemData.itemName}${itemData.isFavorite ? '💖' : ''}</h5>
                                 <p class="card-text">Category: ${itemData.category}</p>
                                 <p class="card-text">${itemData.description}</p>
                                 <button class="btn btn-primary btn-edit" data-id="${doc.id}">📝</button>
@@ -35,8 +35,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         itemsContainer.appendChild(itemCard);
                     });
 
-                    emptyListPlaceholder.style.display = 'none'; // Hide empty list message
-                    itemsContainer.style.display = 'block'; // Show items container
+                    emptyListPlaceholder.style.display = 'none';
+                    itemsContainer.style.display = 'block';
                 })
                 .catch(error => {
                     console.error('Error fetching items: ', error);
@@ -53,8 +53,7 @@ const deleteButtons = document.querySelectorAll('.btn-delete');
 
 editButtons.forEach(button => {
     button.addEventListener('click', (event) => {
-        const itemId = event.target.getAttribute('data-id');
-        // Implement edit functionality, e.g., open edit modal
+        const itemId = event.target.getAttribute('data-id'); 
         console.log('Edit item with ID:', itemId);
     });
 });
@@ -62,7 +61,6 @@ editButtons.forEach(button => {
 deleteButtons.forEach(button => {
     button.addEventListener('click', (event) => {
         const itemId = event.target.getAttribute('data-id');
-        // Implement delete functionality, e.g., show confirmation dialog
         console.log('Delete item with ID:', itemId);
     });
 });
