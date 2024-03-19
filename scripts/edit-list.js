@@ -1,4 +1,4 @@
-const template = document.getElementById('initial-item-template');
+const itemTemplate = document.getElementById('initial-item-template');
 const initialItemsContainer = document.getElementById('initial-items-container');
 const form = document.getElementById('edit-list-form');
 
@@ -39,7 +39,7 @@ async function updateList(submitEvent, listId) {
 	});
 
 	submitting = false;
-	location.assign('/lists');
+	location.assign(`/lists/list.html?id=${listId}`);
 }
 
 async function fetchList(listId) {
@@ -49,8 +49,7 @@ async function fetchList(listId) {
 }
 
 async function fetchItem(itemId) {
-	const currentUserDoc = await getCurrentUserDocRef();
-	const itemsCollectionRef = currentUserDoc.collection(CollectionKeys.USER_ITEMS);
+	const itemsCollection = await getUserCollection(CollectionKeys.USER_ITEMS);
 	return await itemsCollectionRef.doc(`${itemId}`).get();
 }
 
@@ -58,7 +57,7 @@ function renderItem(listItem) {
 	const { quantity, item: data } = listItem;
 
 	const key = `item_${data.id}`;
-	const frag = template.content.cloneNode(true);
+	const frag = itemTemplate.content.cloneNode(true);
 
 	const tracker = document.createElement('input');
 	tracker.type = 'hidden';
@@ -67,7 +66,7 @@ function renderItem(listItem) {
 	frag.firstElementChild.appendChild(tracker);
 
 	const name = frag.querySelector('.template-name');
-	name.innerText = data.name;
+	name.innerText = data.itemName;
 
 	const qt = frag.querySelector('.template-quantity');
 	qt.innerText = quantity;
@@ -104,7 +103,7 @@ async function addItemById(itemId) {
 	adding = true;
 
 	const data = await fetchItem(itemId);
-	renderItem({ quantity: 0, item: data });
+	renderItem({ quantity: 1, item: data });
 	adding = false;
 }
 

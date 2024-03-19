@@ -17,14 +17,14 @@ function generateListElements(allListData) {
 
 		const nItems = frag.querySelector('.template-n-items');
 		nItems.innerText = listData.items.reduce((acc, v) => {
-			return acc + v.quantity;
+			return acc + parseInt(v.quantity);
 		}, 0);
 
 		const desc = frag.querySelector('.template-desc');
 		desc.innerText = listData.description;
 
 		const link = frag.querySelector('.template-link');
-		const url = new URL(window.location.origin + link.href);
+		const url = new URL(link.href);
 		url.searchParams.append('id', listData.id);
 		link.href = url.pathname + url.search;
 
