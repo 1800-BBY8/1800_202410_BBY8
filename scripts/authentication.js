@@ -8,7 +8,7 @@ var uiConfig = {
 				const user = authResult.user;
 
 				usersCollection
-					.doc(user.id)
+					.doc(user.uid)
 					.set({
 						name: user.displayName,
 						email: user.email,
