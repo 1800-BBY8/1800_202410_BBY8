@@ -33,11 +33,21 @@ function getCurrentUser() {
 	return new Promise((res) => firebase.auth().onAuthStateChanged((user) => res(user)));
 }
 
+let userDoc;
 async function getCurrentUserDocRef() {
 	const user = await getCurrentUser();
 	if (!user) return;
 
-	return usersCollection.doc(user.uid);
+	if (userDoc) return userDoc;
+
+	const doc = usersCollection.doc(user.uid);
+	if (doc.exists) userDoc = doc;
+	return doc;
+}
+
+async function getUserCollection(key) {
+	const userRef = await getCurrentUserDocRef();
+	return userRef.collection(key);
 }
 
 function logout() {
@@ -52,4 +62,3 @@ function logout() {
 			// An error happened.
 		});
 }
-

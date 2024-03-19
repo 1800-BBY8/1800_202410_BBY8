@@ -44,15 +44,12 @@
 			</div>
 
 			<div class="container w-100 p-3 bg-primary-subtle mb-3 rounded-2">
-				<h3>Weekly List</h3>
-				<p class="mb-0">These are items I will buy every week.</p>
+				<h3 id="list-name">Loading...</h3>
+				<p class="mb-0" id="list-description"></p>
 				<hr class="hr hr-blurry" />
 				<div class="d-flex gap-2">
 					<div class="bg-primary small p-2 text-center rounded-2 border border-dark-subtle">
-						<p class="mb-0 small">4 Items</p>
-					</div>
-					<div class="bg-primary small p-2 text-center rounded-2 border border-dark-subtle">
-						<p class="mb-0 small">Last Trip: 2 Days Ago</p>
+						<p class="mb-0 small"><span id="list-n-items">0</span> Items</p>
 					</div>
 				</div>
 			</div>
@@ -70,47 +67,19 @@
 				<button class="btn btn-primary" type="button">+ Add</button>
 			</div>
 
-			<div class="w-100 d-flex flex-column gap-2 pb-4 mb">
-				<div
-					class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2 align-items-center"
-				>
-					<div class="flex-grow-1">
-						<p class="mb-0 fw-bold fs-5">Milk</p>
+			<div class="w-100 d-flex flex-column gap-2 pb-4 mb" id="list-items-container">
+				<template id="item-template">
+					<div
+						class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2 align-items-center"
+					>
+						<div class="flex-grow-1">
+							<p class="mb-0 fw-bold fs-5 template-item-name"></p>
+						</div>
+						<div class="bg-primary p-2 text-center rounded-2 border border-dark-subtle">
+							<p class="mb-0 small">x<span class="template-item-quantity"></span></p>
+						</div>
 					</div>
-					<div class="bg-primary p-2 text-center rounded-2 border border-dark-subtle">
-						<p class="mb-0 small">x2</p>
-					</div>
-				</div>
-				<div
-					class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2 align-items-center"
-				>
-					<div class="flex-grow-1">
-						<p class="mb-0 fw-bold fs-5">Eggs</p>
-					</div>
-					<div class="bg-primary p-2 text-center rounded-2 border border-dark-subtle">
-						<p class="mb-0 small">x12</p>
-					</div>
-				</div>
-				<div
-					class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2 align-items-center"
-				>
-					<div class="flex-grow-1">
-						<p class="mb-0 fw-bold fs-5">Butter</p>
-					</div>
-					<div class="bg-primary p-2 text-center rounded-2 border border-dark-subtle">
-						<p class="mb-0 small">x2</p>
-					</div>
-				</div>
-				<div
-					class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2 align-items-center"
-				>
-					<div class="flex-grow-1">
-						<p class="mb-0 fw-bold fs-5">Chocolate</p>
-					</div>
-					<div class="bg-primary p-2 text-center rounded-2 border border-dark-subtle">
-						<p class="mb-0 small">x1</p>
-					</div>
-				</div>
+				</template>
 			</div>
 
 			<div
