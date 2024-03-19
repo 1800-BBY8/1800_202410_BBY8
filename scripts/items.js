@@ -1,42 +1,61 @@
-// Reference to Firebase database
-var database = firebase.database().ref('items');
+document.addEventListener('DOMContentLoaded', function () {
+    const itemsContainer = document.getElementById('items-container');
+    const emptyListPlaceholder = document.getElementById('empty-list-placeholder');
 
-// Function to fetch and display items from Firebase
-function displayItems() {
-    var itemsContainer = document.getElementById('items-container');
-    var loadingMessage = document.getElementById('loading-message');
+    // Fetch items from Firestore
+    firebase.firestore().collection('items').get()
+        .then(querySnapshot => {
+            if (querySnapshot.empty) {
+                emptyListPlaceholder.style.display = 'block'; // Show empty list message
+                itemsContainer.style.display = 'none'; // Hide items container
+                return;
+            }
 
-    // Show loading message
-    loadingMessage.style.display = 'block';
-    itemsContainer.innerHTML = ''; // Clear previous content
+            // Clear any existing items in the container
+            itemsContainer.innerHTML = '';
 
-    database.once('value', function(snapshot) {
-        // Hide loading message
-        loadingMessage.style.display = 'none';
+            // Iterate over each item and create HTML elements
 
-        if (snapshot.exists() && snapshot.hasChildren()) { // Check if there are items in the snapshot
-            snapshot.forEach(function(childSnapshot) {
-                var itemData = childSnapshot.val();
-
-                // Create HTML elements for each item
-                var itemElement = document.createElement('div');
-                itemElement.className = 'w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2';
-                itemElement.innerHTML = `
-                    <div class="w-100 flex-grow-1">
-                        <div class="d-flex align-items-center justify-content-between justify-content-md-start gap-3 mb-2">
-                            <p class="mb-0 fw-bold fs-5">${itemData.itemName}</p>
-                        </div>
-                        <p class="mb-0">${itemData.description}</p>
+            querySnapshot.forEach(doc => {
+                const itemData = doc.data();
+                const itemCard = document.createElement('div');
+                itemCard.classList.add('card');
+                itemCard.innerHTML = `
+                    <div class="card-body">
+                        <h5 class="card-title">${itemData.itemName}${itemData.isFavorite ? ' 💖' : ''}</h5>
+                        <p class="card-text">Category: ${itemData.category}</p>
+                        <p class="card-text">${itemData.description}</p>
+                        <button class="btn btn-primary btn-edit" data-id="${doc.id}">📝</button>
+                        <button class="btn btn-danger btn-delete" data-id="${doc.id}">🗑️</button>
                     </div>
-                    <a class="ms-auto btn fs-1">${itemData.favorite ? '❤️' : '🤍'}</a>
                 `;
-                itemsContainer.appendChild(itemElement);
+                itemsContainer.appendChild(itemCard);
             });
-        } else { // Display message when items list is empty
-            itemsContainer.innerHTML = '<p>Item List is empty...</p>';
-        }
-    });
-}
+     
 
-// Call function to initially display items
-displayItems();
+            emptyListPlaceholder.style.display = 'none'; // Hide empty list message
+            itemsContainer.style.display = 'block'; // Show items container
+        })
+        .catch(error => {
+            console.error('Error fetching items: ', error);
+        });
+});
+
+const editButtons = document.querySelectorAll('.btn-edit');
+const deleteButtons = document.querySelectorAll('.btn-delete');
+
+editButtons.forEach(button => {
+    button.addEventListener('click', (event) => {
+        const itemId = event.target.getAttribute('data-id');
+        // Implement edit functionality, e.g., open edit modal
+        console.log('Edit item with ID:', itemId);
+    });
+});
+
+deleteButtons.forEach(button => {
+    button.addEventListener('click', (event) => {
+        const itemId = event.target.getAttribute('data-id');
+        // Implement delete functionality, e.g., show confirmation dialog
+        console.log('Delete item with ID:', itemId);
+    });
+});

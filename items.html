@@ -58,13 +58,9 @@
             <a href="/items/create_items.html" class="d-inline-block me-3">
                 <button class="btn btn-primary">+ Add an item</button>
             </a>
-            <a href="/items/del_items.html" class="d-inline-block">
-                <button class="btn btn-primary">Manage items</button>
-            </a>
         </div>
         <br>
-          <!-- Placeholder for empty item list -->
-        <div id="empty-list-placeholder" class="text-muted">Item List is currently empty...</div>
+        <div id="empty-list-placeholder" class="text-muted" style="display: none;">Item List is currently empty...</div>
 
         <div id="items-container" class="w-100 d-flex flex-column gap-2 pb-4">
             <!-- Firebase Items go here -->
@@ -73,6 +69,7 @@
 
     <script src="/scripts/firebaseAPI_BBY8.js"></script>
     <script src="/scripts/create-items.js"></script>
+    <script src="/scripts/items.js"></script>
 </body>
 
 
