@@ -3,42 +3,49 @@ document.addEventListener('DOMContentLoaded', function () {
     const emptyListPlaceholder = document.getElementById('empty-list-placeholder');
 
     // Fetch items from Firestore
-    firebase.firestore().collection('items').get()
-        .then(querySnapshot => {
-            if (querySnapshot.empty) {
-                emptyListPlaceholder.style.display = 'block'; // Show empty list message
-                itemsContainer.style.display = 'none'; // Hide items container
-                return;
-            }
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            const userId = user.uid;
 
-            // Clear any existing items in the container
-            itemsContainer.innerHTML = '';
+            firebase.firestore().collection('Users').doc(userId).collection('Items').get()
+                .then(querySnapshot => {
+                    if (querySnapshot.empty) {
+                        emptyListPlaceholder.style.display = 'block'; // Show empty list message
+                        itemsContainer.style.display = 'none'; // Hide items container
+                        return;
+                    }
 
-            // Iterate over each item and create HTML elements
+                    // Clear any existing items in the container
+                    itemsContainer.innerHTML = '';
 
-            querySnapshot.forEach(doc => {
-                const itemData = doc.data();
-                const itemCard = document.createElement('div');
-                itemCard.classList.add('card');
-                itemCard.innerHTML = `
-                    <div class="card-body">
-                        <h5 class="card-title">${itemData.itemName}${itemData.isFavorite ? ' 💖' : ''}</h5>
-                        <p class="card-text">Category: ${itemData.category}</p>
-                        <p class="card-text">${itemData.description}</p>
-                        <button class="btn btn-primary btn-edit" data-id="${doc.id}">📝</button>
-                        <button class="btn btn-danger btn-delete" data-id="${doc.id}">🗑️</button>
-                    </div>
-                `;
-                itemsContainer.appendChild(itemCard);
-            });
-     
+                    // Iterate over each item and create HTML elements
+                    querySnapshot.forEach(doc => {
+                        const itemData = doc.data();
+                        const itemCard = document.createElement('div');
+                        itemCard.classList.add('card');
+                        itemCard.innerHTML = `
+                            <div class="card-body">
+                                <h5 class="card-title">${itemData.itemName}${itemData.isFavorite ? ' 💖' : ''}</h5>
+                                <p class="card-text">Category: ${itemData.category}</p>
+                                <p class="card-text">${itemData.description}</p>
+                                <button class="btn btn-primary btn-edit" data-id="${doc.id}">📝</button>
+                                <button class="btn btn-danger btn-delete" data-id="${doc.id}">🗑️</button>
+                            </div>
+                        `;
+                        itemsContainer.appendChild(itemCard);
+                    });
 
-            emptyListPlaceholder.style.display = 'none'; // Hide empty list message
-            itemsContainer.style.display = 'block'; // Show items container
-        })
-        .catch(error => {
-            console.error('Error fetching items: ', error);
-        });
+                    emptyListPlaceholder.style.display = 'none'; // Hide empty list message
+                    itemsContainer.style.display = 'block'; // Show items container
+                })
+                .catch(error => {
+                    console.error('Error fetching items: ', error);
+                });
+        } else {
+            // User is not signed in.
+            // Redirect to login page or handle as necessary.
+        }
+    });
 });
 
 const editButtons = document.querySelectorAll('.btn-edit');
