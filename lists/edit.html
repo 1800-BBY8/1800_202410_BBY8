@@ -98,12 +98,13 @@
 
 				<hr />
 
-				<input type="submit" class="btn btn-success" value="Save Changes" />
-				<input type="button" class="btn btn-primary" onclick="addItemById('1')" value="Add Item" />
+				<input type="submit" id="save-list-button" class="btn btn-success" value="Save Changes" />
+				<input type="button" id="delete-list-button" class="btn btn-danger" value="Delete List" />
+				<input type="button" id="add-item-button" class="btn btn-primary" value="Add Item" />
 			</form>
 		</div>
 
 		<script src="/scripts/firebaseAPI_BBY8.js"></script>
-		<script src="/scripts/edit-list.js"></script>
+		<script type="module" src="/scripts/edit-list.js"></script>
 	</body>
 </html>

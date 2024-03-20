@@ -27,26 +27,28 @@ const CollectionKeys = {
 	USER_LISTS: 'Lists',
 };
 
-const usersCollection = db.collection(CollectionKeys.USERS);
+let user;
+async function getUser() {
+	if (user) return user;
 
-function getCurrentUser() {
-	return new Promise((res) => firebase.auth().onAuthStateChanged((user) => res(user)));
+	user = await new Promise((res) => firebase.auth().onAuthStateChanged((user) => res(user)));
+	return user;
 }
 
 let userDoc;
-async function getCurrentUserDocRef() {
-	const user = await getCurrentUser();
+async function getUserDocRef() {
+	const user = await getUser();
 	if (!user) return;
 
 	if (userDoc) return userDoc;
 
-	const doc = usersCollection.doc(user.uid);
+	const doc = db.collection(CollectionKeys.USERS).doc(user.uid);
 	if (doc.exists) userDoc = doc;
 	return doc;
 }
 
 async function getUserCollection(key) {
-	const userRef = await getCurrentUserDocRef();
+	const userRef = await getUserDocRef();
 	return userRef.collection(key);
 }
 
