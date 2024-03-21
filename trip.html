@@ -41,68 +41,55 @@
 		<div class="h-100 mt-5 pt-5">
 			<template id="price-form-template">
 				<div class="d-flex flex-column align-items-start text-start fs-6">
-					<label for="template-item-price-input" class="form-label">Item Price</label>
+					<label for="template-item-price-input" class="form-label">Amount of Items Bought:</label>
 					<div class="input-group mb-3">
 						<input
+							required
 							type="number"
 							id="template-items-bought-input"
 							class="form-control template-items-bought-input"
-							aria-label="Items Bought"
+							aria-label="Amount Bought"
 							min="1"
 							step="1"
 							value="1"
 						/>
-						<span class="input-group-text">x $</span>
-						<input
-							min="0"
-							type="number"
-							required
-							id="template-item-price-input"
-							class="form-control w-auto template-item-price-input"
-							aria-label="Item Price"
-						/>
 					</div>
-					<div class="d-flex gap-2">
-						<label for="template-specify-unit-check">Specify unit price?</label>
-						<input
-							min="0"
-							type="checkbox"
-							id="template-specify-unit-check"
-							class="form-check fs-4 template-specify-unit-check"
-						/>
-					</div>
-					<fieldset class="border border-black rounded w-100 p-2 template-unit-fieldset" disabled>
-						<label for="unit-price-input" class="form-label">Unit Price</label>
+					<p class="mb-0">Item Price Breakdown</p>
+					<fieldset class="border border-black rounded w-100 p-2 template-unit">
+						<label for="each-price-input" class="form-label">Each Item Price:</label>
 						<div class="input-group mb-3">
 							<span class="input-group-text">$</span>
 							<input
+								required
 								min="0"
 								type="number"
-								id="unit-price-input"
-								class="form-control template-unit-price-input"
-								aria-label="Unit Price"
+								id="each-price-input"
+								class="form-control template-each-price-input"
+								aria-label="Each Price"
 							/>
 						</div>
-						<label for="template-unit-amount-input" class="form-label">Unit Denomination</label>
+						<label for="template-unit-amount-input" class="form-label">Each Item Unit:</label>
 						<div class="input-group mb-3">
 							<input
+								required
 								min="0"
 								type="number"
 								id="template-unit-amount-input"
 								class="form-control w-auto template-unit-amount-input"
-								aria-label="Buying Amount"
+								aria-label="Each Amount"
 								value="1"
 							/>
 							<select
+								required
 								class="form-select w-25 template-unit-select"
 								id="template-unit-select"
-								aria-label="Unit Denomination"
+								aria-label="Unit Type"
 							>
-								<option value="each">each</option>
+								<option value="g" selected>grams</option>
 								<option value="l">liters</option>
 								<option value="ml">milliliters</option>
 								<option value="kg">kilograms</option>
-								<option value="g">grams</option>
+								<option value="item">item</option>
 							</select>
 						</div>
 					</fieldset>
@@ -125,7 +112,7 @@
 						</div>
 					</div>
 				</div>
-				<a class="btn btn-primary" id="add-item-link">+ Add an item</a>
+				<button class="btn btn-primary" id="add-item-button">+ Add an item</button>
 				<div
 					class="container w-100 bg-primary-subtle mt-auto sticky-bottom p-3 rounded-top-2 border border-black d-flex align-items-center justify-content-between gap-2"
 				>
