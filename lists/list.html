@@ -37,12 +37,6 @@
 		<script src="/scripts/load-dynamic-navigation.js"></script>
 
 		<div class="container p-3 pt-5 mt-5 w-100 h-100 d-flex flex-column align-items-center">
-			<!-- If user has no items on this list -->
-			<div class="text-center d-none">
-				<p>There are no items on this list... yet.</p>
-				<button class="btn btn-primary">+ Add an item</button>
-			</div>
-
 			<div class="container w-100 p-3 bg-primary-subtle mb-3 rounded-2">
 				<h3 id="list-name">Loading...</h3>
 				<p class="mb-0" id="list-description"></p>
@@ -54,17 +48,9 @@
 				</div>
 			</div>
 
-			<!-- If the user has items on this list -->
-			<div class="input-group shadow-sm mb-3">
-				<span class="input-group-text border-1 border-black">🔍</span>
-				<input
-					type="text"
-					class="form-control border-1 border-black"
-					id="items-search"
-					name="items-search"
-					placeholder="Search this list"
-				/>
-				<button class="btn btn-primary" type="button">+ Add</button>
+			<!-- If user has no items on this list -->
+			<div id="no-items-display" class="text-center d-none">
+				<p class="me-0">There are no items on this list... yet.</p>
 			</div>
 
 			<div class="w-100 d-flex flex-column gap-2 pb-4 mb" id="list-items-container">
@@ -81,6 +67,8 @@
 					</div>
 				</template>
 			</div>
+
+			<a class="btn btn-primary" id="add-item-link">+ Add an item</a>
 
 			<div
 				class="container w-100 bg-primary-subtle position-sticky mt-auto sticky-bottom p-3 rounded-top-2 border border-black d-flex gap-2"

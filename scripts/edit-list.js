@@ -115,37 +115,42 @@ function backToList() {
 }
 
 function toggleButtons(enabled) {
-	saveBtn.disalbed = !enabled;
+	saveBtn.disabled = !enabled;
 	deleteBtn.disabled = !enabled;
 	addItemBtn.disabled = !enabled;
 }
 
-getListWithResolvedItems(id).then((data) => {
-	if (!data) return backToLists();
-	fillFields(data);
-
-	form.addEventListener('submit', async (e) => {
-		e.preventDefault();
-
-		toggleButtons(false);
-		await handleSubmit(new FormData(e.target));
+if (!id) backToLists();
+else {
+	toggleButtons(false);
+	getListWithResolvedItems(id).then((data) => {
+		if (!data) return backToLists();
+		fillFields(data);
 		toggleButtons(true);
 
-		backToList();
-	});
+		form.addEventListener('submit', async (e) => {
+			e.preventDefault();
 
-	addItemBtn.addEventListener('click', async () => {
-		toggleButtons(false);
-		// TODO item select popup
-		await handleAddItem('B1VDOzz1v5r18R03viJY');
-		toggleButtons(true);
-	});
+			toggleButtons(false);
+			await handleSubmit(new FormData(e.target));
+			toggleButtons(true);
 
-	deleteBtn.addEventListener('click', async () => {
-		toggleButtons(false);
-		const deleted = await handleDelete(id);
-		toggleButtons(true);
+			backToList();
+		});
 
-		if (deleted) backToLists();
+		addItemBtn.addEventListener('click', async () => {
+			toggleButtons(false);
+			// TODO item select popup
+			await handleAddItem('B1VDOzz1v5r18R03viJY');
+			toggleButtons(true);
+		});
+
+		deleteBtn.addEventListener('click', async () => {
+			toggleButtons(false);
+			const deleted = await handleDelete(id);
+			toggleButtons(true);
+
+			if (deleted) backToLists();
+		});
 	});
-});
+}

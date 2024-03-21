@@ -17,15 +17,22 @@ function renderItem(item) {
 }
 
 function renderList(listData) {
-	document.getElementById('configure-list-link').href = `/lists/edit.html?id=${listData.id}`;
+	const editUrl = `/lists/edit.html?id=${listData.id}`;
+	document.getElementById('configure-list-link').href = editUrl;
+	document.getElementById('add-item-link').href = editUrl;
 	document.getElementById('list-name').innerText = listData.name;
 	document.getElementById('list-description').innerText = listData.description;
 	document.getElementById('list-n-items').innerText = listData.items.length;
 
+	if (listData.items.length === 0) document.getElementById('no-items-display').classList.remove('d-none');
 	for (const item of listData.items) renderItem(item);
 }
 
-getListWithResolvedItems(id).then((list) => {
-	if (!list) return location.assign('/lists');
-	else renderList(list);
-});
+const exit = () => location.assign('/lists');
+if (!id) exit();
+else {
+	getListWithResolvedItems(id).then((list) => {
+		if (!list) return exit();
+		else renderList(list);
+	});
+}

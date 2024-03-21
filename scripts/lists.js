@@ -21,7 +21,8 @@ function generateListElements(allListData) {
 		desc.innerText = listData.description;
 
 		const link = frag.querySelector('.template-link');
-		const url = new URL(link.href);
+		const href = link.href;
+		const url = new URL(href.startsWith('http') ? href : location.origin + href);
 		url.searchParams.append('id', listData.id);
 		link.href = url.pathname + url.search;
 
@@ -37,7 +38,6 @@ function generateListElements(allListData) {
 
 getLists().then((listsData) => {
 	const elements = generateListElements(listsData);
-	for (const el of elements) listsContainer.appendChild(el);
-
 	if (elements.length === 0) document.getElementById('no-list-display').classList.remove('d-none');
+	for (const el of elements) listsContainer.appendChild(el);
 });

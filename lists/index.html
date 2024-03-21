@@ -38,23 +38,9 @@
 		<script src="/scripts/load-dynamic-navigation.js"></script>
 
 		<div class="container p-3 pt-5 mt-5 w-100 h-100 d-flex flex-column align-items-center">
-			<!-- If user has lists -->
-			<div class="input-group shadow-sm mb-3">
-				<span class="input-group-text border-1 border-black">🔍</span>
-				<input
-					type="text"
-					class="form-control border-1 border-black"
-					id="list-search"
-					name="list-search"
-					placeholder="Search your lists"
-				/>
-				<a href="/lists/create.html" class="btn btn-primary" type="button">+ Add</a>
-			</div>
-
 			<!-- If user has no lists -->
 			<div id="no-list-display" class="text-center d-none mt-4">
-				<p>You do not have any lists.</p>
-				<a href="/lists/create.html" class="btn btn-primary">+ Add a list</a>
+				<p class="me-0">You do not have any lists.</p>
 			</div>
 
 			<div id="lists" class="w-100 d-flex flex-column gap-2 pb-4">
@@ -77,6 +63,8 @@
 					</div>
 				</template>
 			</div>
+
+			<a href="/lists/create.html" class="btn btn-primary" type="button">+ Add a list</a>
 		</div>
 
 		<script src="/scripts/firebaseAPI_BBY8.js"></script>
