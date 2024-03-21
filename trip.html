@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Mr. Listr - Shopping Trip</title>
+		<meta name="description" content="Your one stop shop buddy." />
+
+		<!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- Bootstrap Library CSS CDN go here -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+			crossorigin="anonymous"
+		/>
+
+		<!-- Boostrap Library JS CDN  go here -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+			crossorigin="anonymous"
+		></script>
+
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
+		<script src="https://cdn.jsdelivr.net/npm/@magicbruno/swalstrap5@1.0.8/dist/js/swalstrap5_all.min.js"></script>
+
+		<!-- Link to styles of your own -->
+		<link rel="stylesheet" href="/styles/global.css" />
+	</head>
+
+	<body class="overflow-y-hidden">
+		<div id="navigation-placeholder"></div>
+		<script src="/scripts/load-dynamic-navigation.js"></script>
+
+		<div class="h-100 mt-5 pt-5">
+			<template id="price-form-template">
+				<form class="template-price-form d-flex flex-column align-items-start">
+					<label for="unit-price-input" class="form-label">Unit Price</label>
+					<div class="input-group mb-3">
+						<span class="input-group-text">$</span>
+						<input
+							type="number"
+							id="unit-price-input"
+							class="form-control template-unit-price-input"
+							aria-label="Unit Price"
+						/>
+					</div>
+					<label for="unit-denom-input" class="form-label">Unit</label>
+					<div class="input-group mb-3">
+						<input
+							type="number"
+							id="buying-amount-input"
+							class="form-control template-buying-amount-input"
+							aria-label="Buying Amount"
+							value="1"
+						/>
+						<span class="input-group-text">x</span>
+						<input
+							type="number"
+							id="unit-denom-input"
+							class="form-control template-unit-denom-input"
+							aria-label="Unit Denomination"
+							value="1"
+						/>
+						<div class="input-group-text">
+							<select class="form-select">
+								<option>Each</option>
+								<option>Grams</option>
+							</select>
+						</div>
+					</div>
+				</form>
+			</template>
+
+			<div class="container h-100 pt-5 d-flex flex-column">
+				<h1 class="mb-0" id="trip-name">Loading...</h1>
+				<hr />
+				<div class="container" id="items-container">
+					<div
+						class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2 align-items-center justify-content-between"
+					>
+						<p class="mb-0 fw-bold fs-5 template-name">Bread</p>
+						<div class="">
+							<input
+								type="checkbox"
+								class="form-check-input border border-black fs-3 m-0 template-select"
+							/>
+						</div>
+					</div>
+				</div>
+				<a class="btn btn-primary" id="add-item-link">+ Add an item</a>
+				<div
+					class="container w-100 bg-primary-subtle mt-auto sticky-bottom p-3 rounded-top-2 border border-black d-flex align-items-center justify-content-between gap-2"
+				>
+					<button class="btn btn-success">Finish Trip</button>
+					<p class="m-0 fs-5">Total: $<span id="trip-cost">0.00</span></p>
+				</div>
+			</div>
+		</div>
+
+		<script src="/scripts/firebaseAPI_BBY8.js"></script>
+		<script type="module" src="/scripts/trip.js"></script>
+	</body>
+</html>
