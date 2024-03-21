@@ -11,17 +11,56 @@ const trip = {};
 async function promptForPrice() {
 	const frag = priceFormTemplate.content.cloneNode(true);
 
-	const container = document.createElement('div');
-	container.appendChild(frag);
+	let useUnit = false;
+	const itemsBoughtInput = frag.querySelector('.template-items-bought-input');
+	const itemPriceInput = frag.querySelector('.template-item-price-input');
+	const unitCheck = frag.querySelector('.template-specify-unit-check');
+	const unitFieldset = frag.querySelector('.template-unit-fieldset');
+	const unitPriceInput = frag.querySelector('.template-unit-price-input');
+	const unitAmountInput = frag.querySelector('.template-unit-amount-input');
+	const unitSelect = frag.querySelector('.template-unit-select');
 
-	const priceDefinition = await Swal.fire({
+	unitCheck.addEventListener('change', (e) => {
+		const checked = e.target.checked;
+		unitFieldset.disabled = !checked;
+		useUnit = checked;
+	});
+
+	const refId = '_______promptFormContainer';
+	const container = document.createElement('div');
+	container.id = refId;
+
+	const res = await Swal.fire({
 		title: 'Price Definition',
-		html: container.innerHTML,
+		html: container.outerHTML,
+		willOpen: (prompt) => {
+			const container = prompt.querySelector(`#${refId}`);
+			container.appendChild(frag);
+		},
+		preConfirm: () => {
+			const quantity = parseInt(itemsBoughtInput.value);
+			const eachPrice = parseFloat(itemPriceInput.value);
+			if (isNaN(quantity) || isNaN(eachPrice)) return;
+
+			const res = { quantity, eachPrice };
+			if (!useUnit) return res;
+
+			const unitPrice = parseFloat(unitPriceInput.value);
+			const unitAmount = parseFloat(unitAmountInput.value);
+			const unit = unitSelect.value;
+			if (isNaN(unitPrice) || isNaN(unitAmount)) return res;
+
+			res.unit = { unitPrice, unitAmount, unit };
+
+			return res;
+		},
 		showConfirmButton: true,
 		showDenyButton: true,
 		denyButtonText: 'Ignore Price',
 		confirmButtonText: 'Confirm',
 	});
+
+	return res.value;
 }
 
 async function setupTripFromList(list) {
@@ -30,7 +69,8 @@ async function setupTripFromList(list) {
 
 async function setupAnonTrip() {
 	tripNameHolder.innerText = 'New Quick Trip';
-	promptForPrice();
+	// TODO test
+	const priceDefinition = await promptForPrice();
 }
 
 async function setupTrip(id) {
