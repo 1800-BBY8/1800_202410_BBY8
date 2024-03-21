@@ -13,9 +13,7 @@ function generateListElements(allListData) {
 		name.innerText = listData.name;
 
 		const nItems = frag.querySelector('.template-n-items');
-		nItems.innerText = listData.items.reduce((acc, v) => {
-			return acc + parseInt(v.quantity);
-		}, 0);
+		nItems.innerText = listData.items.length;
 
 		const desc = frag.querySelector('.template-desc');
 		desc.innerText = listData.description;
