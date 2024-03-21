@@ -7,10 +7,23 @@ const tripNameHolder = document.getElementById('trip-name');
 const priceFormTemplate = document.getElementById('price-form-template');
 const itemTemplate = document.getElementById('item-template');
 const addItemButton = document.getElementById('add-item-button');
+const itemsContainer = document.getElementById('items-container');
 
 const trip = {};
 
-function renderItem(itemData) {}
+function renderItem(itemData) {
+	const frag = itemTemplate.content.cloneNode(true);
+
+	const name = frag.querySelector('.template-name');
+	name.innerText = itemData.itemName;
+
+	const qty = frag.querySelector('.template-quantity');
+	qty.innerText = itemData.quantity;
+
+	// TODO checkmark
+
+	itemsContainer.appendChild(frag);
+}
 
 async function promptForPrice() {
 	const frag = priceFormTemplate.content.cloneNode(true);
