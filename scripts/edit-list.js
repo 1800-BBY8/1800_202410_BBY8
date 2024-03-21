@@ -1,4 +1,4 @@
-import { getItem, getItemRef } from './firestore-utils/item-helpers.js';
+import { getItem, getItemRef, getItems } from './firestore-utils/item-helpers.js';
 import {
 	deleteList,
 	getList,
@@ -10,8 +10,9 @@ import {
 const params = new URLSearchParams(location.search);
 const id = params.get('id');
 
-const itemTemplate = document.getElementById('initial-item-template');
-const initialItemsContainer = document.getElementById('initial-items-container');
+const itemTemplate = document.getElementById('item-template');
+const selectableItemTemplate = document.getElementById('selectable-item-template');
+const initialItemsContainer = document.getElementById('items-container');
 const form = document.getElementById('edit-list-form');
 
 const saveBtn = document.getElementById('save-list-button');
@@ -91,9 +92,62 @@ function renderItem(listItem) {
 	initialItemsContainer.appendChild(frag);
 }
 
-async function handleAddItem(itemId) {
-	const data = await getItem(itemId);
-	if (data) renderItem({ quantity: 1, item: data });
+function renderSelectableItem(item, onToggle) {
+	const frag = selectableItemTemplate.content.cloneNode(true);
+
+	const name = frag.querySelector('.template-name');
+	name.innerText = item.itemName;
+
+	const selectCheck = frag.querySelector('.template-select');
+	selectCheck.addEventListener('click', (e) => {
+		onToggle(e.target.checked);
+	});
+
+	return frag;
+}
+
+async function handleAddNewItems() {
+	const itemsToAdd = new Set();
+
+	const res = await Swal.fire({
+		titleText: 'Add Items',
+		text: ' ',
+		showConfirmButton: true,
+		showCancelButton: true,
+		preConfirm: (popup) => itemsToAdd,
+		willOpen: () => Swal.showLoading(),
+		didOpen: async (popup) => {
+			const availableItems = await getItems();
+			const itemElements = availableItems.map((v) =>
+				renderSelectableItem(v, (checked) => {
+					if (checked) itemsToAdd.add(v);
+					else itemsToAdd.delete(v);
+				}),
+			);
+
+			const container = document.createElement('div');
+			container.style.maxHeight = '50vh';
+			container.classList.add(
+				'd-flex',
+				'flex-column',
+				'gap-2',
+				'overflow-y-auto',
+				'p-3',
+				'border',
+				'border-black',
+				'rounded',
+			);
+
+			itemElements.forEach((v) => container.appendChild(v));
+			Swal.getHtmlContainer().appendChild(container);
+			Swal.hideLoading();
+		},
+	});
+
+	if (!res.isConfirmed) return;
+
+	const items = res.value;
+	if (items) items.forEach((item) => renderItem({ quantity: 1, item }));
 }
 
 function fillFields(data) {
@@ -140,8 +194,7 @@ else {
 
 		addItemBtn.addEventListener('click', async () => {
 			toggleButtons(false);
-			// TODO item select popup
-			await handleAddItem('B1VDOzz1v5r18R03viJY');
+			await handleAddNewItems();
 			toggleButtons(true);
 		});
 
