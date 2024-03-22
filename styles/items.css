@@ -11,8 +11,8 @@ label {
 
 /* CSS for image container */
 .image-container {
-    max-width: 175px;
-    max-height: 175px;
+    max-width: 200px;
+    max-height: 200px;
     margin-left: auto;
     margin-right: auto;
     border: 3px solid black;
@@ -22,8 +22,8 @@ label {
 
 /* CSS for image */
 .card-img-top {
-    max-width: 150px;
-    max-height: 150px;
+    max-width: 175px;
+    max-height: 175px;
 }
 
 #items-container {
@@ -40,4 +40,6 @@ label {
     outline: none; 
     font-family: inherit; 
     font-size: inherit; 
+    max-height: 150px;
+    overflow-y: auto;
 }

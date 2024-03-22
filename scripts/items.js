@@ -25,18 +25,18 @@ document.addEventListener('DOMContentLoaded', function () {
                         itemCard.classList.add('card');
                         itemCard.innerHTML = `
                             <div class="card-body">
-                            <div>
-                                <h5 class="card-title"> ${itemData.itemName}${itemData.isFavorite ? '  💖' : ''}</h5>
-                                <p class="card-text">Category: ${itemData.category}</p>
-                                <p class="card-text-description">"${itemData.description}"</p>
-                                <button class="btn btn-primary btn-edit" data-id="${doc.id}">📝</button>
-                                <button class="btn btn-danger btn-delete" data-id="${doc.id}">🗑️</button>
+                                <div>
+                                    <h5 class="card-title"><b>${itemData.itemName}</b>${itemData.isFavorite ? '  💖' : ''}</h5>
+                                    <p class="card-text">Category: ${itemData.category}</p>
+                                    <p class="card-text-description">${itemData.description}</p>
+                                    <button class="btn btn-primary btn-edit" data-id="${doc.id}">📝</button>
+                                    <button class="btn btn-danger btn-delete" data-id="${doc.id}">🗑️</button>
                                 </div>
-                                <div class="image-container"> <!-- Add an image container -->
-        <img src="${itemData.imageURL}" alt="Item Image" class="card-img-top"> <!-- Add image element -->
-    </div>                                        
+                                ${itemData.imageURL ? `
+                                    <div class="image-container"> <!-- Add an image container -->
+                                        <img src="${itemData.imageURL}" alt="Item Image" class="card-img-top"> <!-- Add image element -->
+                                    </div>` : ''} <!-- Conditional rendering of image container and element -->
                             </div>
-                      
                         `;
                         itemsContainer.appendChild(itemCard);
                     });
@@ -51,22 +51,5 @@ document.addEventListener('DOMContentLoaded', function () {
             // User is not signed in.
             // Redirect to login page or handle as necessary.
         }
-    });
-});
-
-const editButtons = document.querySelectorAll('.btn-edit');
-const deleteButtons = document.querySelectorAll('.btn-delete');
-
-editButtons.forEach(button => {
-    button.addEventListener('click', (event) => {
-        const itemId = event.target.getAttribute('data-id');
-        console.log('Edit item with ID:', itemId);
-    });
-});
-
-deleteButtons.forEach(button => {
-    button.addEventListener('click', (event) => {
-        const itemId = event.target.getAttribute('data-id');
-        console.log('Delete item with ID:', itemId);
     });
 });
