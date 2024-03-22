@@ -27,17 +27,29 @@ const CollectionKeys = {
 	USER_LISTS: 'Lists',
 };
 
-const usersCollection = db.collection(CollectionKeys.USERS);
+let user;
+async function getUser() {
+	if (user) return user;
 
-function getCurrentUser() {
-	return new Promise((res) => firebase.auth().onAuthStateChanged((user) => res(user)));
+	user = await new Promise((res) => firebase.auth().onAuthStateChanged((user) => res(user)));
+	return user;
 }
 
-async function getCurrentUserDocRef() {
-	const user = await getCurrentUser();
+let userDoc;
+async function getUserDocRef() {
+	const user = await getUser();
 	if (!user) return;
 
-	return usersCollection.doc(user.uid);
+	if (userDoc) return userDoc;
+
+	const doc = db.collection(CollectionKeys.USERS).doc(user.uid);
+	if (doc.exists) userDoc = doc;
+	return doc;
+}
+
+async function getUserCollection(key) {
+	const userRef = await getUserDocRef();
+	return userRef.collection(key);
 }
 
 function logout() {
@@ -52,4 +64,3 @@ function logout() {
 			// An error happened.
 		});
 }
-

@@ -1,24 +1,30 @@
-const template = document.getElementById('initial-item-template');
-const initialItemsContainer = document.getElementById('initial-items-container');
+import { getItem, getItemRef, getItems } from './firestore-utils/item-helpers.js';
+import {
+	deleteList,
+	getList,
+	getListWithResolvedItems,
+	resolveListItemEntry,
+	updateList,
+} from './firestore-utils/list-helpers.js';
+
+const params = new URLSearchParams(location.search);
+const id = params.get('id');
+
+const itemTemplate = document.getElementById('item-template');
+const selectableItemTemplate = document.getElementById('selectable-item-template');
+const initialItemsContainer = document.getElementById('items-container');
 const form = document.getElementById('edit-list-form');
 
-let submitting = false;
-async function updateList(submitEvent, listId) {
-	submitEvent.preventDefault();
-	if (submitting) return;
-	submitting = true;
+const saveBtn = document.getElementById('save-list-button');
+const deleteBtn = document.getElementById('delete-list-button');
+const addItemBtn = document.getElementById('add-item-button');
 
-	const user = await getCurrentUser();
-	const data = new FormData(submitEvent.target);
-
+async function handleSubmit(data) {
 	const name = data.get('list-name');
-	const desc = data.get('list-desc') ?? '';
+	const description = data.get('list-desc') ?? '';
 
 	data.delete('list-name');
 	data.delete('list-desc');
-
-	const currentUserDoc = await getCurrentUserDocRef();
-	const itemsCollectionRef = currentUserDoc.collection(CollectionKeys.USER_ITEMS);
 
 	const items = [];
 	for (const [key, quantity] of data.entries()) {
@@ -28,37 +34,25 @@ async function updateList(submitEvent, listId) {
 		}
 
 		const itemId = key.split('_')[1];
-		items.push({ quantity: quantity, item: itemsCollectionRef.doc(itemId) });
+		items.push({ quantity: quantity, item: await getItemRef(itemId) });
 	}
 
-	const currentListDocumentRef = currentUserDoc.collection(CollectionKeys.USER_LISTS).doc(`${listId}`);
-	await currentListDocumentRef.update({
-		name,
-		description: desc,
-		items,
-	});
-
-	submitting = false;
-	location.assign('/lists');
+	await updateList(id, { name, description, items });
 }
 
-async function fetchList(listId) {
-	const userDoc = await getCurrentUserDocRef();
-	const listDoc = await userDoc.collection(CollectionKeys.USER_LISTS).doc(`${listId}`).get();
-	if (listDoc.exists) return listDoc.data();
-}
+async function handleDelete(listId) {
+	const confirmResult = confirm('Are you sure you want to delete this list?');
+	if (!confirmResult) return false;
 
-async function fetchItem(itemId) {
-	const currentUserDoc = await getCurrentUserDocRef();
-	const itemsCollectionRef = currentUserDoc.collection(CollectionKeys.USER_ITEMS);
-	return await itemsCollectionRef.doc(`${itemId}`).get();
+	await deleteList(id);
+	return true;
 }
 
 function renderItem(listItem) {
-	const { quantity, item: data } = listItem;
+	const { quantity, item } = listItem;
 
-	const key = `item_${data.id}`;
-	const frag = template.content.cloneNode(true);
+	const key = `item_${item.id}`;
+	const frag = itemTemplate.content.cloneNode(true);
 
 	const tracker = document.createElement('input');
 	tracker.type = 'hidden';
@@ -67,7 +61,7 @@ function renderItem(listItem) {
 	frag.firstElementChild.appendChild(tracker);
 
 	const name = frag.querySelector('.template-name');
-	name.innerText = data.name;
+	name.innerText = item.itemName;
 
 	const qt = frag.querySelector('.template-quantity');
 	qt.innerText = quantity;
@@ -98,14 +92,62 @@ function renderItem(listItem) {
 	initialItemsContainer.appendChild(frag);
 }
 
-let adding = false;
-async function addItemById(itemId) {
-	if (adding) return;
-	adding = true;
+function renderSelectableItem(item, onToggle) {
+	const frag = selectableItemTemplate.content.cloneNode(true);
 
-	const data = await fetchItem(itemId);
-	renderItem({ quantity: 0, item: data });
-	adding = false;
+	const name = frag.querySelector('.template-name');
+	name.innerText = item.itemName;
+
+	const selectCheck = frag.querySelector('.template-select');
+	selectCheck.addEventListener('click', (e) => {
+		onToggle(e.target.checked);
+	});
+
+	return frag;
+}
+
+async function handleAddNewItems() {
+	const itemsToAdd = new Set();
+
+	const res = await Swal.fire({
+		titleText: 'Add Items',
+		text: ' ',
+		showConfirmButton: true,
+		showCancelButton: true,
+		preConfirm: (popup) => itemsToAdd,
+		willOpen: () => Swal.showLoading(),
+		didOpen: async (popup) => {
+			const availableItems = await getItems();
+			const itemElements = availableItems.map((v) =>
+				renderSelectableItem(v, (checked) => {
+					if (checked) itemsToAdd.add(v);
+					else itemsToAdd.delete(v);
+				}),
+			);
+
+			const container = document.createElement('div');
+			container.style.maxHeight = '50vh';
+			container.classList.add(
+				'd-flex',
+				'flex-column',
+				'gap-2',
+				'overflow-y-auto',
+				'p-3',
+				'border',
+				'border-black',
+				'rounded',
+			);
+
+			itemElements.forEach((v) => container.appendChild(v));
+			Swal.getHtmlContainer().appendChild(container);
+			Swal.hideLoading();
+		},
+	});
+
+	if (!res.isConfirmed) return;
+
+	const items = res.value;
+	if (items) items.forEach((item) => renderItem({ quantity: 1, item }));
 }
 
 function fillFields(data) {
@@ -115,25 +157,53 @@ function fillFields(data) {
 	const desc = document.querySelector('#list-desc');
 	desc.value = data.description ?? '';
 
-	for (const itemEntry of data.items) {
-		itemEntry.item.get().then((itemDoc) => {
-			renderItem({
-				quantity: itemEntry.quantity,
-				item: { id: itemDoc.id, ...itemDoc.data() },
-			});
-		});
-	}
+	for (const item of data.items) renderItem(item);
 }
 
-const params = new URLSearchParams(location.search);
-const id = params.get('id');
-
-function exit() {
+function backToLists() {
 	location.assign('/lists');
 }
 
-fetchList(id).then((data) => {
-	if (!data) return exit();
-	fillFields(data);
-	form.addEventListener('submit', (e) => updateList(e, id));
-});
+function backToList() {
+	location.assign(`/lists/list.html?id=${id}`);
+}
+
+function toggleButtons(enabled) {
+	saveBtn.disabled = !enabled;
+	deleteBtn.disabled = !enabled;
+	addItemBtn.disabled = !enabled;
+}
+
+if (!id) backToLists();
+else {
+	toggleButtons(false);
+	getListWithResolvedItems(id).then((data) => {
+		if (!data) return backToLists();
+		fillFields(data);
+		toggleButtons(true);
+
+		form.addEventListener('submit', async (e) => {
+			e.preventDefault();
+
+			toggleButtons(false);
+			await handleSubmit(new FormData(e.target));
+			toggleButtons(true);
+
+			backToList();
+		});
+
+		addItemBtn.addEventListener('click', async () => {
+			toggleButtons(false);
+			await handleAddNewItems();
+			toggleButtons(true);
+		});
+
+		deleteBtn.addEventListener('click', async () => {
+			toggleButtons(false);
+			const deleted = await handleDelete(id);
+			toggleButtons(true);
+
+			if (deleted) backToLists();
+		});
+	});
+}

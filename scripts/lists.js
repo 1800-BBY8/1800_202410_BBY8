@@ -1,9 +1,6 @@
-async function fetchLists() {
-	const userDoc = await getCurrentUserDocRef();
-	const rawLists = await userDoc.collection(CollectionKeys.USER_LISTS).get();
+import { getLists } from './firestore-utils/list-helpers.js';
 
-	return rawLists.docs.map((list) => ({ id: list.id, ...list.data() }));
-}
+const listsContainer = document.getElementById('lists');
 
 function generateListElements(allListData) {
 	const template = document.getElementById('list');
@@ -16,15 +13,14 @@ function generateListElements(allListData) {
 		name.innerText = listData.name;
 
 		const nItems = frag.querySelector('.template-n-items');
-		nItems.innerText = listData.items.reduce((acc, v) => {
-			return acc + v.quantity;
-		}, 0);
+		nItems.innerText = listData.items.length;
 
 		const desc = frag.querySelector('.template-desc');
 		desc.innerText = listData.description;
 
 		const link = frag.querySelector('.template-link');
-		const url = new URL(window.location.origin + link.href);
+		const href = link.href;
+		const url = new URL(href.startsWith('http') ? href : location.origin + href);
 		url.searchParams.append('id', listData.id);
 		link.href = url.pathname + url.search;
 
@@ -38,10 +34,8 @@ function generateListElements(allListData) {
 	return elements;
 }
 
-fetchLists().then((listsData) => {
+getLists().then((listsData) => {
 	const elements = generateListElements(listsData);
-	const container = document.getElementById('lists');
-	for (const el of elements) container.appendChild(el);
-
 	if (elements.length === 0) document.getElementById('no-list-display').classList.remove('d-none');
+	for (const el of elements) listsContainer.appendChild(el);
 });
