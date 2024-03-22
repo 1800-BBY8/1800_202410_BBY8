@@ -96,6 +96,10 @@ async function promptForPrice(initQuantity = 1) {
 			const container = prompt.querySelector(`#${refId}`);
 			container.appendChild(frag);
 		},
+		preDeny: () => {
+			console.log(parseInt(itemsBoughtInput.value));
+			return { quantity: parseInt(itemsBoughtInput.value) };
+		},
 		preConfirm: () => {
 			const quantity = parseInt(itemsBoughtInput.value);
 			const boughtAtPrice = parseFloat(eachPriceInput.value);
@@ -111,7 +115,10 @@ async function promptForPrice(initQuantity = 1) {
 		confirmButtonText: 'Confirm',
 	});
 
-	return res.value;
+	const value = res.value ? res.value : {};
+	if (!value.quantity || value.quantity < 1) value.quantity = initQuantity;
+
+	return value;
 }
 
 async function setupTripFromList(list) {
