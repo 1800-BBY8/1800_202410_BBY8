@@ -16,15 +16,18 @@ async function handleSubmit(formData) {
 	formData.delete('list-desc');
 
 	const items = [];
-	for (const [key, quantity] of formData.entries()) {
+	for (const [key, _quantity] of formData.entries()) {
 		if (!key.startsWith('item_')) {
-			console.warn(`Unknown field found on submission: "${key}"="${quantity}"`);
+			console.warn(`Unknown field found on submission: "${key}"="${_quantity}"`);
 			continue;
 		}
 
+		let quantity = parseInt(_quantity);
+		if (isNaN(quantity)) quantity = 1;
+
 		const itemId = key.split('_')[1];
 		if (!itemId) return;
-		items.push({ quantity: quantity, item: await getItemRef(itemId) });
+		items.push({ quantity, item: await getItemRef(itemId) });
 	}
 
 	await createList({ name, description, items });
