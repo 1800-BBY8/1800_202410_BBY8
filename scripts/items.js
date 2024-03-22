@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const emptyListPlaceholder = document.getElementById('empty-list-placeholder');
 
     // Fetch items from Firestore
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             const userId = user.uid;
 
@@ -59,7 +59,7 @@ const deleteButtons = document.querySelectorAll('.btn-delete');
 
 editButtons.forEach(button => {
     button.addEventListener('click', (event) => {
-        const itemId = event.target.getAttribute('data-id'); 
+        const itemId = event.target.getAttribute('data-id');
         console.log('Edit item with ID:', itemId);
     });
 });

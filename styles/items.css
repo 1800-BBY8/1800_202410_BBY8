@@ -3,29 +3,10 @@ label {
     margin-bottom: 5px;
 }
 
-/* 
-.image-container {
-    display: flex;
-    align-items: center; 
-    max-width: 150px;
-    max-height: 150px;
-    overflow: hidden;
-  }
-  
-
-  .card-img-top {
-    max-width: 150px;
-    max-height: 150px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-  } */
-
  /* CSS for card body */
 .card-body {
     display: flex;
-    align-items: center; /* Center items vertically */
+    align-items: center; 
 }
 
 /* CSS for image container */
@@ -52,11 +33,11 @@ label {
 
 .card-text-description {
     width: 300px;
-    border: 1px solid #ccc; /* Add a border */
-    border-radius: 4px; /* Add border radius for rounded corners */
-    padding: 8px; /* Add padding for spacing inside the textbox */
-    resize: none; /* Prevent resizing of the textbox */
-    outline: none; /* Remove default outline */
-    font-family: inherit; /* Inherit font family from parent */
-    font-size: inherit; /* Inherit font size from parent */
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    padding: 8px; 
+    resize: none; 
+    outline: none; 
+    font-family: inherit; 
+    font-size: inherit; 
 }
