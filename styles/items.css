@@ -3,3 +3,60 @@ label {
     margin-bottom: 5px;
 }
 
+/* 
+.image-container {
+    display: flex;
+    align-items: center; 
+    max-width: 150px;
+    max-height: 150px;
+    overflow: hidden;
+  }
+  
+
+  .card-img-top {
+    max-width: 150px;
+    max-height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+  } */
+
+ /* CSS for card body */
+.card-body {
+    display: flex;
+    align-items: center; /* Center items vertically */
+}
+
+/* CSS for image container */
+.image-container {
+    max-width: 175px;
+    max-height: 175px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 3px solid black;
+    border-radius: 6px;
+    
+}
+
+/* CSS for image */
+.card-img-top {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+#items-container {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.card-text-description {
+    width: 300px;
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 4px; /* Add border radius for rounded corners */
+    padding: 8px; /* Add padding for spacing inside the textbox */
+    resize: none; /* Prevent resizing of the textbox */
+    outline: none; /* Remove default outline */
+    font-family: inherit; /* Inherit font family from parent */
+    font-size: inherit; /* Inherit font size from parent */
+}

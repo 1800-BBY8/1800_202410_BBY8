@@ -25,12 +25,18 @@ document.addEventListener('DOMContentLoaded', function () {
                         itemCard.classList.add('card');
                         itemCard.innerHTML = `
                             <div class="card-body">
-                                <h5 class="card-title">${itemData.itemName}${itemData.isFavorite ? '💖' : ''}</h5>
+                            <div>
+                                <h5 class="card-title"> ${itemData.itemName}${itemData.isFavorite ? '  💖' : ''}</h5>
                                 <p class="card-text">Category: ${itemData.category}</p>
-                                <p class="card-text">${itemData.description}</p>
+                                <p class="card-text-description">"${itemData.description}"</p>
                                 <button class="btn btn-primary btn-edit" data-id="${doc.id}">📝</button>
                                 <button class="btn btn-danger btn-delete" data-id="${doc.id}">🗑️</button>
+                                </div>
+                                <div class="image-container"> <!-- Add an image container -->
+        <img src="${itemData.imageURL}" alt="Item Image" class="card-img-top"> <!-- Add image element -->
+    </div>                                        
                             </div>
+                      
                         `;
                         itemsContainer.appendChild(itemCard);
                     });
