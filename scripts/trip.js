@@ -1,43 +1,104 @@
-import { getListWithResolvedItems } from './firestore-utils/list-helpers.js';
+import { getListRef, getListWithResolvedItems } from './firestore-utils/list-helpers.js';
+import { createTrip } from './firestore-utils/trip-helpers.js';
 import { promptForItems } from './popup-utils/item-prompt.js';
 
 const params = new URLSearchParams(location.search);
 const id = params.get('id');
 
 const tripNameHolder = document.getElementById('trip-name');
-const tripPriceHolder = document.getElementById('trip-price');
+const tripTotalBreakdownHolder = document.getElementById('trip-total-breakdown');
 const pricePopupTemplate = document.getElementById('price-popup-template');
 const itemTemplate = document.getElementById('item-template');
-const addItemsButton = document.getElementById('add-items-button');
 const itemsContainer = document.getElementById('items-container');
+const addItemsButton = document.getElementById('add-items-button');
+const addTempItemsButton = document.getElementById('add-temp-items-button');
+const finishTripButton = document.getElementById('finish-trip-button');
+const cancelTripButton = document.getElementById('cancel-trip-button');
 
-const priceFormatter = Intl.NumberFormat('en-US', { style: 'currency', currency: 'CAD' });
-
-const trip = {
+const tripInfo = {
 	boughtItems: [],
+	total: {
+		complete: 0,
+		categorical: new Map(),
+	},
 };
 
-let totalTaxRate = 0.12;
-async function cacheTaxRate() {
-	if (totalTaxRate) return;
+let taxRates = [
+	['pst', 0.07],
+	['gst', 0.05],
+];
+
+async function getTaxRates() {
+	if (taxRates.length !== 0) return taxRates;
 
 	const bcTaxes = await fetch('https://api.salestaxapi.ca/v2/province/bc').then((v) => v.json());
 	const rateTypes = bcTaxes.type.split(',');
-	rateTypes.forEach((v) => (totalTaxRate += bcTaxes[v]));
+	rateTypes.forEach((v) => taxRates.push([v, bcTaxes[v]]));
 }
 
-function calculateTotal() {
-	const subtotal = trip.boughtItems.reduce((acc, v) => {
-		if (!v.boughtAtPrice) return acc;
-		return acc + v.boughtAtPrice * v.quantity;
-	}, 0);
+function updateTripTotals() {
+	let completeTotal = 0;
+	const categoricalTotals = new Map();
 
-	return subtotal + subtotal * totalTaxRate;
+	for (const priceDescriptor of tripInfo.boughtItems) {
+		const quantity = priceDescriptor.quantity;
+		const price = priceDescriptor.boughtAtPrice;
+
+		if (!Number.isInteger(quantity) || typeof price !== 'number') continue;
+
+		const totalPrice = price * quantity;
+		completeTotal += totalPrice;
+
+		const category = priceDescriptor.item.category;
+		if (typeof category !== 'string') continue;
+
+		let categoryTotal = categoricalTotals.get(category) ?? 0;
+		categoryTotal += totalPrice;
+		categoricalTotals.set(category, categoryTotal);
+	}
+
+	tripInfo.total.complete = completeTotal;
+	tripInfo.total.categorical = categoricalTotals;
 }
 
-function updateTrip() {
-	const total = calculateTotal();
-	tripPriceHolder.innerText = priceFormatter.format(total);
+async function displayTripTotal() {
+	const priceFormatter = Intl.NumberFormat('en-US', { style: 'currency', currency: 'CAD' });
+	const percFormatter = Intl.NumberFormat('en-US', { style: 'percent' });
+
+	tripTotalBreakdownHolder.innerHTML = '';
+	updateTripTotals();
+
+	const getBreakdownElement = (key, amount) => {
+		const container = document.createElement('li');
+		const priceText = document.createElement('span');
+
+		container.classList.add('d-flex', 'gap-3', 'justify-content-between');
+
+		container.innerText = `${key}: `;
+		priceText.innerText = priceFormatter.format(amount);
+
+		container.appendChild(priceText);
+		return container;
+	};
+
+	let total = tripInfo.total.complete;
+	const nItems = tripInfo.boughtItems.reduce((acc, v) => acc + v.quantity, 0);
+	tripTotalBreakdownHolder.append(
+		getBreakdownElement(`Subtotal (${nItems} item${nItems === 1 ? '' : 's'})`, total),
+	);
+
+	let totalTax = 0;
+	for (const [taxKey, taxRate] of await getTaxRates()) {
+		const taxAmount = total * taxRate;
+
+		tripTotalBreakdownHolder.append(
+			getBreakdownElement(`${taxKey.toUpperCase()} (${percFormatter.format(taxRate)})`, taxAmount),
+		);
+
+		totalTax += taxAmount;
+	}
+
+	tripTotalBreakdownHolder.append(getBreakdownElement('Total', total + totalTax));
 }
 
 function renderItem(listItem) {
@@ -70,24 +131,26 @@ function renderItem(listItem) {
 			if (!priceDefinition) e.target.checked = false;
 			else {
 				// TODO will this work when multiple of same item on list?
-				trip.boughtItems.push({ item, ...priceDefinition });
+				tripInfo.boughtItems.push({ item, ...priceDefinition });
 				check.indeterminate = priceDefinition.quantity < quantity;
 				setPurchased(priceDefinition.quantity);
 			}
 		} else {
-			const index = trip.boughtItems.findIndex((v) => v.item === item);
-			trip.boughtItems.splice(index, 1);
+			const index = tripInfo.boughtItems.findIndex((v) => v.item === item);
+			tripInfo.boughtItems.splice(index, 1);
 			setPurchased(0);
 		}
 
 		e.target.disabled = false;
-		updateTrip();
+		displayTripTotal();
 	});
 
 	itemsContainer.appendChild(frag);
 }
 
-async function promptForQuantityAndPrice(initQuantity = 1) {
+async function promptForQuantityAndPrice(initQuantity) {
+	if (!initQuantity || !Number.isInteger(initQuantity)) initQuantity = 1;
+
 	const frag = pricePopupTemplate.content.cloneNode(true);
 
 	const eachPriceInput = frag.querySelector('.template-each-price-input');
@@ -169,8 +232,32 @@ async function promptForQuantityAndPrice(initQuantity = 1) {
 	return { quantity, boughtAtPrice, boughtAtUnit: { unit, amount: unitAmount } };
 }
 
-async function addItems() {
-	const itemsToAdd = await promptForItems();
+function exit() {
+	if (id) location.assign(`/lists/list.html?id=${id}`);
+	else location.assign('/lists');
+}
+
+async function endTrip() {
+	const infoToSave = {};
+	infoToSave.boughtItems = tripInfo.boughtItems;
+
+	if (id) infoToSave.initiateListId = id;
+
+	const categoryTotals = [];
+	tripInfo.total.categorical.forEach((total, category) => categoryTotals.push({ category, total }));
+
+	infoToSave.completeTotal = tripInfo.total.complete;
+	infoToSave.categoryTotals = categoryTotals;
+
+	if (infoToSave.boughtItems.length > 0) {
+		await createTrip(infoToSave);
+	}
+
+	exit();
+}
+
+async function addItems(custom) {
+	const itemsToAdd = await promptForItems(custom);
 	itemsToAdd.forEach((item) => renderItem({ item }));
 }
 
@@ -183,6 +270,11 @@ async function setupAnonTrip() {
 	tripNameHolder.innerText = 'New Quick Trip';
 }
 
+function toggleButtons(enabled) {
+	addItemsButton.disabled = !enabled;
+	finishTripButton.disabled = !enabled;
+}
+
 async function setupTrip(id) {
 	if (!id) setupAnonTrip();
 	else {
@@ -191,9 +283,16 @@ async function setupTrip(id) {
 		else setupAnonTrip();
 	}
 
+	displayTripTotal();
 	addItemsButton.addEventListener('click', () => addItems());
+	addTempItemsButton.addEventListener('click', () => addItems(true));
+	cancelTripButton.addEventListener('click', exit);
+	finishTripButton.addEventListener('click', async () => {
+		toggleButtons(false);
+		await endTrip();
+		toggleButtons(true);
+	});
 }
 
 // TODO allow for add custom item, and saved item
-
-cacheTaxRate().then(() => setupTrip(id));
+getTaxRates().then(() => setupTrip(id));

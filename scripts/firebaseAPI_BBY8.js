@@ -27,6 +27,8 @@ const CollectionKeys = {
 	USER_LISTS: 'Lists',
 };
 
+const ITEM_CATEGORIES = ['Protein', 'Carbohydrates', 'Drinks', 'Fats', 'Snacks', 'Produce', 'Misc'];
+
 let user;
 async function getUser() {
 	if (user) return user;

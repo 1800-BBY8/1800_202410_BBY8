@@ -1,3 +1,5 @@
+/// <reference path="../firebaseAPI_BBY8.js" />
+
 import { getItems } from '../firestore-utils/item-helpers.js';
 
 const template = fetch('/scripts/skeletons/prompt-selectable-item.xml')
@@ -8,7 +10,57 @@ const template = fetch('/scripts/skeletons/prompt-selectable-item.xml')
 		return template;
 	});
 
-async function renderSelectableItem(item, onToggle) {
+const editableTemplate = fetch('/scripts/skeletons/prompt-editable-selectable-item.xml')
+	.then((v) => v.text())
+	.then((v) => {
+		const template = document.createElement('template');
+		template.innerHTML = v;
+		return template;
+	});
+
+async function renderTempItem(itemRef, onToggle, editable) {
+	const frag = (await editableTemplate).content.cloneNode(true);
+
+	const name = frag.querySelector('.template-name');
+	const category = frag.querySelector('.template-category');
+
+	name.addEventListener('change', () => {
+		let value = name.value.trim();
+		if (!value) value = 'Temporary Item';
+		itemRef.itemName = value;
+	});
+
+	category.addEventListener('change', () => {
+		const value = category.value;
+		itemRef.category = value;
+	});
+
+	ITEM_CATEGORIES.forEach((v, i) => {
+		const option = document.createElement('option');
+		option.innerText = v;
+		option.value = v;
+		if (i === 0) option.selected = true;
+		category.appendChild(option);
+	});
+
+	const selectCheck = frag.querySelector('.template-select');
+	selectCheck.addEventListener('click', (e) => {
+		const checked = e.target.checked;
+
+		const nameValue = name.value.trim();
+		if (!nameValue) {
+			name.classList.add('is-invalid');
+			e.target.checked = false;
+			return;
+		} else name.classList.remove('is-invalid');
+
+		onToggle(checked);
+	});
+
+	return frag;
+}
+
+async function renderItem(item, onToggle, editable) {
 	const frag = (await template).content.cloneNode(true);
 
 	const name = frag.querySelector('.template-name');
@@ -20,7 +72,7 @@ async function renderSelectableItem(item, onToggle) {
 	return frag;
 }
 
-export async function promptForItems() {
+export async function promptForItems(temporaryItems = false) {
 	const itemsToAdd = new Set();
 
 	const res = await Swal.fire({
@@ -28,19 +80,18 @@ export async function promptForItems() {
 		html: ' ',
 		showConfirmButton: true,
 		showCancelButton: true,
+		confirmButtonText: 'Add Selected',
+		customClass: {
+			confirmButton: 'btn btn-success',
+			cancelButton: 'btn btn-danger',
+		},
 		preConfirm: (popup) => itemsToAdd,
 		willOpen: () => Swal.showLoading(),
 		didOpen: async (popup) => {
-			const availableItems = await getItems();
-
-			const itemElements = await Promise.all(
-				availableItems.map((v) =>
-					renderSelectableItem(v, (checked) => {
-						if (checked) itemsToAdd.add(v);
-						else itemsToAdd.delete(v);
-					}),
-				),
-			);
+			const onItemToggle = (item, checked) => {
+				if (checked) itemsToAdd.add(item);
+				else itemsToAdd.delete(item);
+			};
 
 			const container = document.createElement('div');
 			container.style.maxHeight = '50vh';
@@ -55,7 +106,30 @@ export async function promptForItems() {
 				'rounded',
 			);
 
-			itemElements.forEach((v) => container.appendChild(v));
+			if (temporaryItems) {
+				const addBtn = document.createElement('button');
+				addBtn.classList.add('btn', 'btn-primary');
+				addBtn.innerText = '+ New Temporary Item';
+
+				const addTemporaryItem = async () => {
+					const newItem = { temporary: true };
+					const itemElement = await renderTempItem(newItem, (v) => onItemToggle(newItem, v));
+					container.insertBefore(itemElement, addBtn);
+				};
+
+				addBtn.addEventListener('click', addTemporaryItem);
+				container.appendChild(addBtn);
+
+				addTemporaryItem();
+			} else {
+				const availableItems = await getItems();
+				const itemElements = await Promise.all(
+					availableItems.map((v) => renderItem(v, (checked) => onItemToggle(v, checked))),
+				);
+
+				itemElements.forEach((v) => container.appendChild(v));
+			}
+
 			Swal.getHtmlContainer().appendChild(container);
 			Swal.hideLoading();
 		},

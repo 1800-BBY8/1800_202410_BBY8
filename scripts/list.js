@@ -20,6 +20,7 @@ function renderList(listData) {
 	const editUrl = `/lists/edit.html?id=${listData.id}`;
 	document.getElementById('configure-list-link').href = editUrl;
 	document.getElementById('add-item-link').href = editUrl;
+	document.getElementById('start-trip-link').href = `/trip.html?id=${listData.id}`;
 	document.getElementById('list-name').innerText = listData.name;
 	document.getElementById('list-description').innerText = listData.description;
 	document.getElementById('list-n-items').innerText = listData.items.length;
