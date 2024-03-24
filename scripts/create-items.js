@@ -84,3 +84,4 @@ categoryButtons.forEach(button => {
       document.getElementById('category').value = this.getAttribute('data-category');
   });
 });
+

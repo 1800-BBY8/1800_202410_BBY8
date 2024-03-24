@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Mr. Listr - My Items</title>
+    <title>Mr. Listr</title>
     <meta name="description" content="Your one stop shop buddy." />
     <!-- Bootstrap Library CSS CDN go here -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -35,27 +35,18 @@
     <link rel="stylesheet" href="/styles/items.css" />
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
-
-
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 </head>
-
 
 <body class="h-100">
     <div id="navigation-placeholder"></div>
     <script src="/scripts/load-dynamic-navigation.js"></script>
 
     <div class="container p-3 pt-5 mt-5 w-100 h-100 d-flex flex-column align-items-center">
-        <div class="input-group shadow-sm mb-3">
-            <span class="input-group-text border-1 border-black">🔍</span>
-            <input type="text" class="form-control border-1 border-black" id="list-search" name="list-search"
-                placeholder="Search your items" />
-            <button class="btn btn-primary" type="button">Search</button>
-        </div>
-
         <div>
+            <h1><b>My Items</b></h1>
             <a href="/items/create_items.html" class="d-inline-block me-3">
                 <button class="btn btn-primary">+ Add an item</button>
             </a>
@@ -68,13 +59,48 @@
         </div>
     </div>
 
+    <!-- Add a pop-up edit form -->
+    <div id="edit-form" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Edit Item</h2>
+            <form id="edit-item-form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="edit-item-name">Item Name:</label>
+                    <input type="text" id="edit-item-name" name="edit-item-name" class="form-control" required>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="edit-favorite" name="edit-favorite">
+                    <label class="form-check-label" for="edit-favorite">Favorite 💖</label>
+                </div>
+                <div class="form-group">
+                    <label>Category:</label>
+                    <div class="btn-group" role="group" aria-label="Category">
+                        <button type="button" class="btn btn-secondary category-btn" data-category="Protein">Protein</button>
+                        <button type="button" class="btn btn-secondary category-btn" data-category="Carbohydrates">Carbohydrates</button>
+                        <button type="button" class="btn btn-secondary category-btn" data-category="Drinks">Drinks</button>
+                        <button type="button" class="btn btn-secondary category-btn" data-category="Fats">Fats</button>
+                        <button type="button" class="btn btn-secondary category-btn" data-category="Snacks">Snacks</button>
+                        <button type="button" class="btn btn-secondary category-btn" data-category="Produce">Produce</button>
+                        <button type="button" class="btn btn-secondary category-btn" data-category="Misc">Misc</button>
+                    </div>
+                    <input type="hidden" id="edit-category" name="edit-category">
+                </div>
+                <div class="form-group">
+                    <label for="edit-description">Description:</label>
+                    <textarea id="edit-description" name="edit-description" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="edit-image">Image:</label>
+                    <input type="file" id="edit-image" name="edit-image" class="form-control-file" accept="image/*">
+                </div>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
     <script src="/scripts/firebaseAPI_BBY8.js"></script>
-    <script src="/scripts/create-items.js"></script>
     <script src="/scripts/items.js"></script>
-    <script src="/scripts/del-items.js"></script>
 </body>
-
-
-
 
 </html>
