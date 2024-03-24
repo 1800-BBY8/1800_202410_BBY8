@@ -1,4 +1,4 @@
-import { getItem, getItemRef, getItems } from './firestore-utils/item-helpers.js';
+import { getItem, getItemRef } from './firestore-utils/item-helpers.js';
 import {
 	deleteList,
 	getList,
@@ -6,6 +6,7 @@ import {
 	resolveListItemEntry,
 	updateList,
 } from './firestore-utils/list-helpers.js';
+import { promptForItems } from './popup-utils/item-prompt.js';
 
 const params = new URLSearchParams(location.search);
 const id = params.get('id');
@@ -27,14 +28,17 @@ async function handleSubmit(data) {
 	data.delete('list-desc');
 
 	const items = [];
-	for (const [key, quantity] of data.entries()) {
+	for (const [key, _quantity] of data.entries()) {
 		if (!key.startsWith('item_')) {
-			console.warn(`Unknown field found on submission: "${key}"="${quantity}"`);
+			console.warn(`Unknown field found on submission: "${key}"="${_quantity}"`);
 			continue;
 		}
 
+		let quantity = parseInt(_quantity);
+		if (isNaN(quantity)) quantity = 1;
+
 		const itemId = key.split('_')[1];
-		items.push({ quantity: quantity, item: await getItemRef(itemId) });
+		items.push({ quantity, item: await getItemRef(itemId) });
 	}
 
 	await updateList(id, { name, description, items });
@@ -92,62 +96,9 @@ function renderItem(listItem) {
 	initialItemsContainer.appendChild(frag);
 }
 
-function renderSelectableItem(item, onToggle) {
-	const frag = selectableItemTemplate.content.cloneNode(true);
-
-	const name = frag.querySelector('.template-name');
-	name.innerText = item.itemName;
-
-	const selectCheck = frag.querySelector('.template-select');
-	selectCheck.addEventListener('click', (e) => {
-		onToggle(e.target.checked);
-	});
-
-	return frag;
-}
-
 async function handleAddNewItems() {
-	const itemsToAdd = new Set();
-
-	const res = await Swal.fire({
-		titleText: 'Add Items',
-		text: ' ',
-		showConfirmButton: true,
-		showCancelButton: true,
-		preConfirm: (popup) => itemsToAdd,
-		willOpen: () => Swal.showLoading(),
-		didOpen: async (popup) => {
-			const availableItems = await getItems();
-			const itemElements = availableItems.map((v) =>
-				renderSelectableItem(v, (checked) => {
-					if (checked) itemsToAdd.add(v);
-					else itemsToAdd.delete(v);
-				}),
-			);
-
-			const container = document.createElement('div');
-			container.style.maxHeight = '50vh';
-			container.classList.add(
-				'd-flex',
-				'flex-column',
-				'gap-2',
-				'overflow-y-auto',
-				'p-3',
-				'border',
-				'border-black',
-				'rounded',
-			);
-
-			itemElements.forEach((v) => container.appendChild(v));
-			Swal.getHtmlContainer().appendChild(container);
-			Swal.hideLoading();
-		},
-	});
-
-	if (!res.isConfirmed) return;
-
-	const items = res.value;
-	if (items) items.forEach((item) => renderItem({ quantity: 1, item }));
+	const itemsToAdd = await promptForItems();
+	itemsToAdd.forEach((item) => renderItem({ quantity: 1, item }));
 }
 
 function fillFields(data) {
