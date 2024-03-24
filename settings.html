@@ -24,6 +24,15 @@
 			crossorigin="anonymous"
 		></script>
 
+		<!--Firebase Links-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script> 
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
 		<!-- Link to styles of your own -->
 		<link rel="stylesheet" href="/styles/global.css" />
 	</head>
@@ -42,7 +51,7 @@
 							<p class="mb-0 fw-bold fs-5">Appearance</p>
 						</div>
 					</div>
-					<a class="ms-auto btn fs-1" href="/list.html">➡️</a>
+					<a class="ms-auto btn fs-1" href="">➡️</a>
 				</div>
 
 				<div class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2">
@@ -72,7 +81,7 @@
 						<div
 							class="d-flex align-items-center justify-content-between justify-content-md-start gap-3 mb-2"
 						>
-							<p class="mb-0 fw-bold fs-5">Change Account</p>
+							<p class="mb-0 fw-bold fs-5">Logout</p>
 						</div>
 					</div>
 					<a href="" class="ms-auto btn fs-1">➡️</a>
@@ -83,12 +92,15 @@
 						<div
 							class="d-flex align-items-center justify-content-between justify-content-md-start gap-3 mb-2"
 						>
-							<p class="mb-0 fw-bold fs-5">Logout</p>
+							<p class="mb-0 fw-bold fs-5">Delete Account</p>
 						</div>
 					</div>
-					<a href="" class="ms-auto btn fs-1">➡️</a>
+					<a id="deleteAccountBtn" class="ms-auto btn fs-1">➡️</a>
 				</div>
 			</div>
 		</div>
+		<script src="/scripts/firebaseAPI_BBY8.js"></script>
+		<script src="/scripts/settings.js"></script>
+
 	</body>
 </html>

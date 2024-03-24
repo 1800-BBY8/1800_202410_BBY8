@@ -3,10 +3,10 @@ label {
     margin-bottom: 5px;
 }
 
- /* CSS for card body */
+/* CSS for card body */
 .card-body {
     display: flex;
-    align-items: center; 
+    align-items: center;
 }
 
 /* CSS for image container */
@@ -17,7 +17,7 @@ label {
     margin-right: auto;
     border: 3px solid black;
     border-radius: 6px;
-    
+
 }
 
 /* CSS for image */
@@ -33,13 +33,93 @@ label {
 
 .card-text-description {
     width: 300px;
-    border: 1px solid #ccc; 
-    border-radius: 4px; 
-    padding: 8px; 
-    resize: none; 
-    outline: none; 
-    font-family: inherit; 
-    font-size: inherit; 
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    resize: none;
+    outline: none;
+    font-family: inherit;
+    font-size: inherit;
     max-height: 150px;
     overflow-y: auto;
+}
+
+
+/* Styles for modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal content */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Button styles */
+.btn {
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+}
+
+.btn-primary {
+    background-color: #5a6650ff;
+    color: white;
+}
+
+
+
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+.category-btn {
+    margin-right: 5px;
+    background-color: #5a6650ff;
+}
+
+.category-btn:active,
+.category-btn:focus {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
 }
