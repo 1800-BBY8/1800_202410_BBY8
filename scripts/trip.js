@@ -130,7 +130,6 @@ function renderItem(listItem) {
 			const priceDefinition = await promptForQuantityAndPrice(quantity);
 			if (!priceDefinition) e.target.checked = false;
 			else {
-				// TODO will this work when multiple of same item on list?
 				tripInfo.boughtItems.push({ item, ...priceDefinition });
 				check.indeterminate = priceDefinition.quantity < quantity;
 				setPurchased(priceDefinition.quantity);
@@ -294,5 +293,4 @@ async function setupTrip(id) {
 	});
 }
 
-// TODO allow for add custom item, and saved item
 getTaxRates().then(() => setupTrip(id));
