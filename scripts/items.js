@@ -62,6 +62,8 @@ document.addEventListener('DOMContentLoaded', function () {
                             editCategoryInput.value = itemData.category;
                             editDescriptionInput.value = itemData.description || '';
                             editForm.style.display = 'block';
+                            document.getElementById('edit-favorite').checked = itemData.isFavorite;
+
                         });
                     });
 
@@ -113,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const editedItemName = editItemNameInput.value.trim();
         const editedCategory = editCategoryInput.value.trim();
         const editedIsFavorite = document.getElementById('edit-favorite').checked;
-        const editedDescription = editDescriptionInput.value.trim();
+        const editedDescription = editDescriptionInput.value.trim(); 
         const editedImageFile = editImageInput.files[0];
 
         if (editedItemName === '' || editedCategory === '') {
@@ -188,3 +190,4 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 });
+
