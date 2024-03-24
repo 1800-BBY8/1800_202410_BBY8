@@ -19,8 +19,18 @@
 		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 		crossorigin="anonymous"></script>
 
+	<!--Firebase Links-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script> 
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
 	<!-- Link to styles of your own -->
 	<link rel="stylesheet" href="/styles/global.css" />
+	<link rel="stylesheet" href="/styles/insights.css" />
 
 	<!-- Load Google Charts -->
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -34,9 +44,14 @@
 
 	<div class="container p-3 pt-5 mt-5 w-100 h-100 d-flex flex-column align-items-center">
 		
-		<div id="chart_div" style="width: 100%; height: 400px;"></div>
+		<div id="chartContainer">
+		<img id="placeholderImage" src="images/insights-main.svg" alt="placeholderImage" />
+		<div id="chart1_div" class="d-none" style="width: 90vw; height: 40vh;"></div>
+		<div id="chart2_div" class="d-none" style="width: 90vw; height: 40vh;"></div>
+		<div id="chart3_div" class="d-none" style="width: 90vw; height: 50vh;"></div>
+		</div>
 
-		<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+	<!--	<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
 			<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked />
 			<label class="btn btn-outline-primary" for="btnradio1">Weekly</label>
 
@@ -46,6 +61,7 @@
 			<input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" />
 			<label class="btn btn-outline-primary" for="btnradio3">All Time</label>
 		</div>
+		-->
 
 		<div class="w-100 d-flex flex-column gap-2 pb-4">
 			<div class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2">
@@ -55,7 +71,8 @@
 					</div>
 					<p class="mb-0">Select an item and display the price paid.</p>
 				</div>
-				<a class="ms-auto btn fs-1" href="/list.html">➡️</a>
+				<button type="button" id="itemCosts" class="btn btn-secondary category-btn">➡️</button>
+				
 			</div>
 
 			<div class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2">
@@ -65,7 +82,7 @@
 					</div>
 					<p class="mb-0">Categories of items purchased.</p>
 				</div>
-				<a href="" class="ms-auto btn fs-1">➡️</a>
+				<button type="button" id="categories" class="btn btn-secondary category-btn">➡️</button>
 			</div>
 
 			<div class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2">
@@ -75,10 +92,11 @@
 					</div>
 					<p class="mb-0">Overall money spent from each list.</p>
 				</div>
-				<a href="" class="ms-auto btn fs-1">➡️</a>
+				<button type="button" id="overall" class="btn btn-secondary category-btn">➡️</button>
 			</div>
 		</div>
 	</div>
+	<script src="/scripts/firebaseAPI_BBY8.js"></script>
 	<script src="/scripts/insights.js"></script>
 </body>
 
