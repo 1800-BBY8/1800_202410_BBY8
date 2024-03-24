@@ -11,6 +11,12 @@ document.addEventListener('DOMContentLoaded', function () {
       const description = document.getElementById('description').value;
       const imageFile = document.getElementById('image').files[0];
 
+      // Validate that itemName and category are not empty
+      if (!itemName.trim() || !category.trim()) {
+          alert("Please enter both name and category.");
+          return;
+      }
+
       // Get the current user
       const user = firebase.auth().currentUser;
       if (user) {
@@ -67,18 +73,14 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 const categoryButtons = document.querySelectorAll('.category-btn');
-// Add click event listener to each category button
 categoryButtons.forEach(button => {
-    button.addEventListener('click', function() {
-        // Remove 'active' class from all buttons
-        categoryButtons.forEach(btn => {
-            btn.classList.remove('active');
-            btn.classList.add('btn-secondary'); 
-        });
-        // Add 'active' class to the clicked button
-        this.classList.add('active');
-        this.classList.remove('btn-secondary'); 
-        // Set the value of the hidden input field to the selected category
-        document.getElementById('category').value = this.getAttribute('data-category');
-    });
+  button.addEventListener('click', function() {
+      categoryButtons.forEach(btn => {
+          btn.classList.remove('active');
+          btn.classList.add('btn-secondary'); 
+      });
+      this.classList.add('active');
+      this.classList.remove('btn-secondary'); 
+      document.getElementById('category').value = this.getAttribute('data-category');
+  });
 });

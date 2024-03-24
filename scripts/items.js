@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <div>
                                     <h5 class="card-title"><b>${itemData.itemName}</b>${itemData.isFavorite ? '  💖' : ''}</h5>
                                     <p class="card-text">Category: ${itemData.category}</p>
-                                    <p class="card-text-description">${itemData.description}</p>
+                                    ${itemData.description ? `<p class="card-text-description">${itemData.description}</p>` : ''}
                                     <button class="btn btn-primary btn-edit" data-id="${doc.id}">📝</button>
                                     <button class="btn btn-danger btn-delete" data-id="${doc.id}">🗑️</button>
                                 </div>
@@ -39,6 +39,12 @@ document.addEventListener('DOMContentLoaded', function () {
                             </div>
                         `;
                         itemsContainer.appendChild(itemCard);
+
+                        // Add event listener for delete button
+                        const deleteButton = itemCard.querySelector('.btn-delete');
+                        deleteButton.addEventListener('click', () => {
+                            deleteItem(userId, doc.id); // Call function to delete item
+                        });
                     });
 
                     emptyListPlaceholder.style.display = 'none';
@@ -52,4 +58,17 @@ document.addEventListener('DOMContentLoaded', function () {
             // Redirect to login page or handle as necessary.
         }
     });
+
+    // Function to delete item from Firestore
+    function deleteItem(userId, itemId) {
+        firebase.firestore().collection('Users').doc(userId).collection('Items').doc(itemId).delete()
+            .then(() => {
+                console.log('Item successfully deleted');
+                // Reload the page to reflect the deletion
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Error deleting item: ', error);
+            });
+    }
 });
