@@ -117,9 +117,8 @@ label {
     background-color: #5a6650ff;
 }
 
-.category-btn:focus
-.category-btn:active {
-    background-color: black;
+.category-btn.active {
+    background-color: white;
     color: black;
     border: 1px solid black;
 }
