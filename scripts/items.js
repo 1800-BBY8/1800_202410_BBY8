@@ -48,11 +48,16 @@ document.addEventListener('DOMContentLoaded', function () {
                         `;
                         itemsContainer.appendChild(itemCard);
 
-                        // Add event listener for delete button
                         const deleteButton = itemCard.querySelector('.btn-delete');
                         deleteButton.addEventListener('click', () => {
-                            deleteItem(userId, doc.id); // Call function to delete item
+                            // Show confirmation dialog
+                            const isConfirmed = confirm("Are you sure you want to delete this item?");
+                            
+                            if (isConfirmed) {
+                                deleteItem(userId, doc.id); // Call function to delete item
+                            }
                         });
+                    
 
                         // Add event listener for edit button
                         const editButton = itemCard.querySelector('.btn-edit');
