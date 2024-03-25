@@ -1,7 +1,8 @@
 <div
     class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2 align-items-center justify-content-between"
 >
-    <p class="mb-0 fw-bold fs-5 template-name"></p>
+    <input type="text" class="form-control template-name" placeholder="Item name" />
+    <select class="form-select template-category"></select>
     <input
         type="checkbox"
         class="form-check-input border border-black fs-3 m-0 template-select"

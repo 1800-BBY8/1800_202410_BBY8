@@ -17,7 +17,7 @@
 			aria-labelledby="offcanvasDarkNavbarLabel"
 		>
 			<div class="offcanvas-header">
-				<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Options</h5>
+				<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Navigation</h5>
 				<button
 					type="button"
 					class="btn-close btn-close-white"
