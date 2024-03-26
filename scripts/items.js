@@ -114,16 +114,23 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Event listener for category buttons
-    const categoryButtons = document.querySelectorAll('.category-btn');
-    categoryButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const category = button.dataset.category;
-            editCategoryInput.value = category;
-            // Toggle active class for styling (optional)
-            categoryButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-        });
+const categoryButtons = document.querySelectorAll('.category-btn');
+categoryButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const category = button.dataset.category;
+        editCategoryInput.value = category;
+        // Toggle active class for styling (optional)
+        categoryButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        // Filter items by selected category
+        filterItemsByCategory(category);
+
+        // Code that fixes the double click sortBy bug.
+        sortBy(); 
     });
+});
+
 
     // Function to handle editing item details
     editItemForm.addEventListener('submit', (event) => {
@@ -211,9 +218,10 @@ function filterItemsByCategory(category) {
     const cards = itemsContainer.querySelectorAll('.card');
     cards.forEach(card => {
         const cardCategory = card.querySelector('.card-text').textContent.split(': ')[1];
-        if (category === 'All' || cardCategory === category) {
+        if (cardCategory === category) {
             card.style.display = 'block';
-        } else {
+        } 
+        else {
             card.style.display = 'none';
         }
     });

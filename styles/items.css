@@ -145,6 +145,6 @@ label {
 
 
 #sort-by {
-    background-color: #5a6650ff;
+    background-color: #5a6650ff !important;
     color: white;
 }
