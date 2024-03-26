@@ -1,6 +1,7 @@
 
 const searchInput = document.getElementById('items-search');
 const itemsContainer = document.getElementById('items-container');
+const sortByButton = document.querySelector('.sort-by');
 
 document.addEventListener('DOMContentLoaded', function () {
     const itemsContainer = document.getElementById('items-container');
@@ -101,6 +102,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    sortByButton.addEventListener('click', () => {
+        const selectedCategory = document.querySelector('.category-btn.active');
+        const category = selectedCategory ? selectedCategory.dataset.category : 'All';
+        filterItemsByCategory(category);
+    });
+
     // Prevent the form from closing when clicking inside it
     editItemForm.addEventListener('click', (event) => {
         event.stopPropagation();
@@ -198,6 +205,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Error deleting item: ', error);
             });
     }
+
+// Function to filter items by category
+function filterItemsByCategory(category) {
+    const cards = itemsContainer.querySelectorAll('.card');
+    cards.forEach(card => {
+        const cardCategory = card.querySelector('.card-text').textContent.split(': ')[1];
+        if (category === 'All' || cardCategory === category) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
 });
 
 // Event listener for search input
@@ -212,5 +232,7 @@ searchInput.addEventListener('input', () => {
         card.style.display = display;
     });
 });
+
+
 
 
