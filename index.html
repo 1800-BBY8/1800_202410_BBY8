@@ -25,6 +25,18 @@
 
 		<!-- Link to styles of your own -->
 		<link rel="stylesheet" href="/styles/global.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+		<link
+			type="text/css"
+			rel="stylesheet"
+			href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css"
+		/>
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 	</head>
 
 	<body>
@@ -55,14 +67,16 @@
 							class="btn btn-secondary btn-lg"
 						>
 							Login/Register
-					</a>
+						</a>
 					</div>
 				</div>
-
-				<script
-					async=""
-					src="https://unpkg.com/smoothscroll-polyfill/dist/smoothscroll.min.js"
-				></script>
+				<script src="/scripts/firebaseAPI_BBY8.js"></script>
+				<script>
+					firebase.auth().onAuthStateChanged((user) => {
+						if (!user) location.assign('/login.html');
+						else location.assign('/main.html');
+					});
+				</script>
 			</div>
 		</div>
 	</body>
