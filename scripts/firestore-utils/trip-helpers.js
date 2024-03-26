@@ -3,7 +3,7 @@
 export async function getTrips() {
 	const collection = await getUserCollection(CollectionKeys.USER_TRIPS);
 	const documents = (await collection.get()).docs;
-	return documents.map((v) => ({ id: doc.id, ...doc.data() }));
+	return documents.map((doc) => ({ id: doc.id, ...doc.data() }));
 }
 
 export async function getTripRef(id) {
