@@ -53,9 +53,12 @@
 		<!---------------------------------------------->
 		<script src="/scripts/firebaseAPI_BBY8.js"></script>
 		<script src="/scripts/authentication.js"></script>
-	
-
-			<script async="" src="https://unpkg.com/smoothscroll-polyfill/dist/smoothscroll.min.js"></script>
+		<script>
+			firebase.auth().onAuthStateChanged((user) => {
+				if (!user) location.assign('/login.html');
+				else location.assign('/main.html');
+			});
+		</script>
 		</div>
 	</div>
 </body>
