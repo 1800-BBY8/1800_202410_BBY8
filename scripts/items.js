@@ -1,3 +1,7 @@
+
+const searchInput = document.getElementById('items-search');
+const itemsContainer = document.getElementById('items-container');
+
 document.addEventListener('DOMContentLoaded', function () {
     const itemsContainer = document.getElementById('items-container');
     const emptyListPlaceholder = document.getElementById('empty-list-placeholder');
@@ -195,4 +199,18 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 });
+
+// Event listener for search input
+searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    const cards = itemsContainer.querySelectorAll('.card');
+
+    cards.forEach(card => {
+        const itemName = card.querySelector('.card-title').textContent.toLowerCase();
+        const description = card.querySelector('.card-text-description');
+        const display = (itemName.includes(searchTerm) || (description && description.textContent.toLowerCase().includes(searchTerm))) ? 'block' : 'none';
+        card.style.display = display;
+    });
+});
+
 
