@@ -57,11 +57,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
          const deleteButton = itemCard.querySelector('.btn-delete');
     deleteButton.addEventListener('click', () => {
-        // Show confirmation dialog
         const isConfirmed = confirm("Are you sure you want to delete this item?");
         
         if (isConfirmed) {
-            deleteItem(userId, doc.id); // Call function to delete item
+             // Call function to delete item
+            deleteItem(userId, doc.id) // Call function to delete item
         }
     });
 
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
         } else {
             // User is not signed in.
-            // Redirect to login page or handle as necessary.
+            // Can be used to redirect to login page.
         }
     });
 
@@ -138,6 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             }});
         });
+        
 
 
 
@@ -223,16 +224,27 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    // Event listener for the "All" button
+    const allButton = document.querySelector('.category-btn[data-category="All"]');
+    allButton.addEventListener('click', () => {
+        // Remove the "active" class from all buttons
+        categoryButtons.forEach(btn => btn.classList.remove('active'));
+        // Add the "active" class to the "All" button
+        allButton.classList.add('active');
+        // Filter items to show all categories
+        filterItemsByCategory('All');
+    });
+
 // Function to filter items by category
 function filterItemsByCategory(category) {
     const cards = itemsContainer.querySelectorAll('.card');
+
     cards.forEach(card => {
         const cardCategory = card.querySelector('.card-text').textContent.split(': ')[1];
-        if (cardCategory === category) {
+        if (category === 'All' || cardCategory === category) {
             card.style.display = 'block';
-        } 
-        else {
-            card.style.display = 'none';      
+        } else {
+            card.style.display = 'none';
         }
     });
 }

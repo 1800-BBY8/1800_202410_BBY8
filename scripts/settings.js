@@ -42,14 +42,13 @@ const logoutBtn = document.querySelector('#logout');
 logoutBtn.addEventListener('click', (e) => {
   e.preventDefault();
   auth.signOut().then(() => {
-    // Show a custom modal indicating logout success
+    // Custom Modal from sweetalert
     Swal.fire({
       icon: 'success',
       title: 'Logout successful',
       showConfirmButton: false,
-      timer: 1500 // Hide after 1.5 seconds
+      timer: 1500 
     }).then(() => {
-      // Redirect the user to login.html
       window.location.href = "login.html";
     });
   });
