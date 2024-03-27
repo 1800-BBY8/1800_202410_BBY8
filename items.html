@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet"
         href="https://unpkg.com/bs-brain@2.0.3/components/contacts/contact-1/assets/css/contact-1.css">
-        
+
 
     <!-- ion icons  -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -47,43 +47,46 @@
     <div class="container p-3 pt-5 mt-5 w-100 h-100 d-flex flex-column align-items-center">
         <div class="input-group shadow-sm mb-3">
             <span class="input-group-text border-1 border-black">🔍</span>
-            <input
-                type="text"
-                class="form-control border-1 border-black"
-                id="items-search"
-                name="items-search"
-                placeholder="Search your items"
-            />
-           
+            <input type="text" class="form-control border-1 border-black" id="items-search" name="items-search"
+                placeholder="Search your items" />
+
         </div>
 
         <div>
             <a href="/items/create_items.html" class="d-inline-block me-3">
                 <button class="btn btn-primary">+ Add an item</button>
             </a>
-            <button type="button" id="sort-by" class="btn btn-primary sort-by dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <!-- Sort By : Allows user to search for specific group items -->
+            <button type="button" id="sort-by" class="btn btn-primary sort-by dropdown-toggle" data-bs-toggle="dropdown"
+                aria-expanded="false">
                 Sort By
             </button>
             <div class="btn-group">
                 <ul class="dropdown-menu" id="category-dropdown" aria-labelledby="dropdownMenuButton">
-                    <li><button id="category-choice" class="dropdown-item category-btn" type="button" data-category="All">All</button></li>                 
-                    <li><button id="category-choice" class="dropdown-item category-btn" type="button" data-category="Protein">Protein</button></li>
-                    <li><button id="category-choice" class="dropdown-item category-btn" type="button" data-category="Carbohydrates">Carbohydrates</button></li>
-                    <li><button id="category-choice" class="dropdown-item category-btn" type="button" data-category="Drinks">Drinks</button></li>
-                    <li><button id="category-choice" class="dropdown-item category-btn" type="button" data-category="Fats">Fats</button></li>
-                    <li><button id="category-choice" class="dropdown-item category-btn" type="button" data-category="Snacks">Snacks</button></li>
-                    <li><button id="category-choice" class="dropdown-item category-btn" type="button" data-category="Produce">Produce</button></li>
-                    <li><button id="category-choice" class="dropdown-item category-btn" type="button" data-category="Misc">Misc</button></li>
+                    <li><button id="category-choice" class="dropdown-item category-btn" type="button"
+                            data-category="All">All</button></li>
+                    <li><button id="category-choice" class="dropdown-item category-btn" type="button"
+                            data-category="Protein">Protein</button></li>
+                    <li><button id="category-choice" class="dropdown-item category-btn" type="button"
+                            data-category="Carbohydrates">Carbohydrates</button></li>
+                    <li><button id="category-choice" class="dropdown-item category-btn" type="button"
+                            data-category="Drinks">Drinks</button></li>
+                    <li><button id="category-choice" class="dropdown-item category-btn" type="button"
+                            data-category="Fats">Fats</button></li>
+                    <li><button id="category-choice" class="dropdown-item category-btn" type="button"
+                            data-category="Snacks">Snacks</button></li>
+                    <li><button id="category-choice" class="dropdown-item category-btn" type="button"
+                            data-category="Produce">Produce</button></li>
+                    <li><button id="category-choice" class="dropdown-item category-btn" type="button"
+                            data-category="Misc">Misc</button></li>
                 </ul>
             </div>
-            
         </div>
-       
+
 
 
         <br>
         <div id="empty-list-placeholder" class="text-muted" style="display: none;">Item List is currently empty...</div>
-
         <div id="items-container" class="w-100 d-flex flex-column gap-2 pb-4">
             <!-- Firebase Items go here -->
         </div>
@@ -103,15 +106,22 @@
                     <input type="checkbox" class="form-check-input" id="edit-favorite" name="edit-favorite">
                     <label class="form-check-label" for="edit-favorite">Favorite 💖</label>
                 </div>
+
+
                 <div class="form-group">
                     <label>Category:</label>
                     <div class="btn-group" role="group" aria-label="Category">
-                        <button type="button" class="btn btn-secondary category-btn" data-category="Protein">Protein</button>
-                        <button type="button" class="btn btn-secondary category-btn" data-category="Carbohydrates">Carbohydrates</button>
-                        <button type="button" class="btn btn-secondary category-btn" data-category="Drinks">Drinks</button>
+                        <button type="button" class="btn btn-secondary category-btn"
+                            data-category="Protein">Protein</button>
+                        <button type="button" class="btn btn-secondary category-btn"
+                            data-category="Carbohydrates">Carbohydrates</button>
+                        <button type="button" class="btn btn-secondary category-btn"
+                            data-category="Drinks">Drinks</button>
                         <button type="button" class="btn btn-secondary category-btn" data-category="Fats">Fats</button>
-                        <button type="button" class="btn btn-secondary category-btn" data-category="Snacks">Snacks</button>
-                        <button type="button" class="btn btn-secondary category-btn" data-category="Produce">Produce</button>
+                        <button type="button" class="btn btn-secondary category-btn"
+                            data-category="Snacks">Snacks</button>
+                        <button type="button" class="btn btn-secondary category-btn"
+                            data-category="Produce">Produce</button>
                         <button type="button" class="btn btn-secondary category-btn" data-category="Misc">Misc</button>
                     </div>
                     <input type="hidden" id="edit-category" name="edit-category">
@@ -129,7 +139,7 @@
         </div>
     </div>
 
-    
+
 
     <script src="/scripts/firebaseAPI_BBY8.js"></script>
     <script src="/scripts/items.js"></script>

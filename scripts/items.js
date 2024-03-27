@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let itemIdToEdit = null;
     let userId = null;
 
-    
+
 
     // Fetch items from Firestore
     firebase.auth().onAuthStateChanged(function (user) {
@@ -55,15 +55,15 @@ document.addEventListener('DOMContentLoaded', function () {
                         `;
                         itemsContainer.appendChild(itemCard);
 
-         const deleteButton = itemCard.querySelector('.btn-delete');
-    deleteButton.addEventListener('click', () => {
-        const isConfirmed = confirm("Are you sure you want to delete this item?");
-        
-        if (isConfirmed) {
-             // Call function to delete item
-            deleteItem(userId, doc.id) // Call function to delete item
-        }
-    });
+                        const deleteButton = itemCard.querySelector('.btn-delete');
+                        deleteButton.addEventListener('click', () => {
+                            const isConfirmed = confirm("Are you sure you want to delete this item?");
+
+                            if (isConfirmed) {
+                                // Call function to delete item
+                                deleteItem(userId, doc.id) // Call function to delete item
+                            }
+                        });
 
 
                         // Add event listener for edit button
@@ -104,17 +104,20 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    sortByButton.addEventListener('click', () => {
-        const selectedCategory = document.querySelector('.category-btn.active');
-        const category = selectedCategory ? selectedCategory.dataset.category : 'All';
-        filterItemsByCategory(category);
-    });
+    // ** Failed sorting Function
+    // sortByButton.addEventListener('click', () => {
+    //     const selectedCategory = document.querySelector('.category-btn.active');
+    //     const category = selectedCategory ? selectedCategory.dataset.category : 'All';
+    //     filterItemsByCategory(category);
+    // });
 
     // Prevent the form from closing when clicking inside it
     editItemForm.addEventListener('click', (event) => {
         event.stopPropagation();
     });
 
+
+    // Sort by Category
     const categoryButtons = document.querySelectorAll('.category-btn');
     categoryButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -136,9 +139,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 cards.forEach(card => {
                     card.style.display = 'block';
                 });
-            }});
+            }
         });
-        
+    });
+
 
 
 
@@ -149,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const editedItemName = editItemNameInput.value.trim();
         const editedCategory = editCategoryInput.value.trim();
         const editedIsFavorite = document.getElementById('edit-favorite').checked;
-        const editedDescription = editDescriptionInput.value.trim(); 
+        const editedDescription = editDescriptionInput.value.trim();
         const editedImageFile = editImageInput.files[0];
 
         if (editedItemName === '' || editedCategory === '') {
@@ -227,13 +231,13 @@ document.addEventListener('DOMContentLoaded', function () {
     // Event listener for the "All" button
     // const allButton = document.querySelector('.category-btn[data-category="All"]');
     // allButton.addEventListener('click', () => {
-        // Remove the "active" class from all buttons
-        // categoryButtons.forEach(btn => btn.classList.remove('active'));
-        // Add the "active" class to the "All" button
-        // allButton.classList.add('active');
-        // Filter items to show all categories
-        // filterItemsByCategory('All');
-    });
+    // Remove the "active" class from all buttons
+    // categoryButtons.forEach(btn => btn.classList.remove('active'));
+    // Add the "active" class to the "All" button
+    // allButton.classList.add('active');
+    // Filter items to show all categories
+    // filterItemsByCategory('All');
+});
 
 // Function to filter items by category
 function filterItemsByCategory(category) {
