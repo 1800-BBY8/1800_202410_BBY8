@@ -1,3 +1,8 @@
+
+const searchInput = document.getElementById('items-search');
+const itemsContainer = document.getElementById('items-container');
+const sortByButton = document.querySelector('.sort-by');
+
 document.addEventListener('DOMContentLoaded', function () {
     const itemsContainer = document.getElementById('items-container');
     const emptyListPlaceholder = document.getElementById('empty-list-placeholder');
@@ -9,6 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const editImageInput = document.getElementById('edit-image');
     let itemIdToEdit = null;
     let userId = null;
+
+
 
     // Fetch items from Firestore
     firebase.auth().onAuthStateChanged(function (user) {
@@ -48,15 +55,15 @@ document.addEventListener('DOMContentLoaded', function () {
                         `;
                         itemsContainer.appendChild(itemCard);
 
-         const deleteButton = itemCard.querySelector('.btn-delete');
-    deleteButton.addEventListener('click', () => {
-        // Show confirmation dialog
-        const isConfirmed = confirm("Are you sure you want to delete this item?");
-        
-        if (isConfirmed) {
-            deleteItem(userId, doc.id); // Call function to delete item
-        }
-    });
+                        const deleteButton = itemCard.querySelector('.btn-delete');
+                        deleteButton.addEventListener('click', () => {
+                            const isConfirmed = confirm("Are you sure you want to delete this item?");
+
+                            if (isConfirmed) {
+                                // Call function to delete item
+                                deleteItem(userId, doc.id) // Call function to delete item
+                            }
+                        });
 
 
                         // Add event listener for edit button
@@ -80,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
         } else {
             // User is not signed in.
-            // Redirect to login page or handle as necessary.
+            // Can be used to redirect to login page.
         }
     });
 
@@ -97,12 +104,20 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    // ** Failed sorting Function
+    // sortByButton.addEventListener('click', () => {
+    //     const selectedCategory = document.querySelector('.category-btn.active');
+    //     const category = selectedCategory ? selectedCategory.dataset.category : 'All';
+    //     filterItemsByCategory(category);
+    // });
+
     // Prevent the form from closing when clicking inside it
     editItemForm.addEventListener('click', (event) => {
         event.stopPropagation();
     });
 
-    // Event listener for category buttons
+
+    // Sort by Category
     const categoryButtons = document.querySelectorAll('.category-btn');
     categoryButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -111,8 +126,26 @@ document.addEventListener('DOMContentLoaded', function () {
             // Toggle active class for styling (optional)
             categoryButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
+
+            // Filter items by selected category
+            filterItemsByCategory(category);
+
+            // Reset search input value to empty string
+            searchInput.value = '';
+
+            // Show all items when "All" category is selected
+            if (category === 'All') {
+                const cards = itemsContainer.querySelectorAll('.card');
+                cards.forEach(card => {
+                    card.style.display = 'block';
+                });
+            }
         });
     });
+
+
+
+
 
     // Function to handle editing item details
     editItemForm.addEventListener('submit', (event) => {
@@ -120,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const editedItemName = editItemNameInput.value.trim();
         const editedCategory = editCategoryInput.value.trim();
         const editedIsFavorite = document.getElementById('edit-favorite').checked;
-        const editedDescription = editDescriptionInput.value.trim(); 
+        const editedDescription = editDescriptionInput.value.trim();
         const editedImageFile = editImageInput.files[0];
 
         if (editedItemName === '' || editedCategory === '') {
@@ -194,5 +227,46 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Error deleting item: ', error);
             });
     }
+
+    // Event listener for the "All" button
+    // const allButton = document.querySelector('.category-btn[data-category="All"]');
+    // allButton.addEventListener('click', () => {
+    // Remove the "active" class from all buttons
+    // categoryButtons.forEach(btn => btn.classList.remove('active'));
+    // Add the "active" class to the "All" button
+    // allButton.classList.add('active');
+    // Filter items to show all categories
+    // filterItemsByCategory('All');
 });
+
+// Function to filter items by category
+function filterItemsByCategory(category) {
+    const cards = itemsContainer.querySelectorAll('.card');
+
+    cards.forEach(card => {
+        const cardCategory = card.querySelector('.card-text').textContent.split(': ')[1];
+        if (category === 'All' || cardCategory === category) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+// });
+
+// Event listener for search input
+searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    const cards = itemsContainer.querySelectorAll('.card');
+
+    cards.forEach(card => {
+        const itemName = card.querySelector('.card-title').textContent.toLowerCase();
+        const description = card.querySelector('.card-text-description');
+        const display = (itemName.includes(searchTerm) || (description && description.textContent.toLowerCase().includes(searchTerm))) ? 'block' : 'none';
+        card.style.display = display;
+    });
+});
+
+
+
 

@@ -24,12 +24,12 @@
 
 	<!--Firebase Links-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script> 
-    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+	<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 
 </head>
 
@@ -42,11 +42,11 @@
 			">
 		<!-- the body of your page goes here -->
 		<div id="authentication">
-		<div class="container">
-			<h1>Mr Listr Login!</h1>
-		</div>
-		<div id="firebaseui-auth-container"></div>
-		<div id="loader">Loading...</div>
+			<div class="container">
+				<h1>Mr Listr Login!</h1>
+			</div>
+			<div id="firebaseui-auth-container"></div>
+			<div id="loader">Loading...</div>
 		</div>
 		<!---------------------------------------------->
 		<!-- Your own JavaScript functions go here    -->
@@ -55,11 +55,12 @@
 		<script src="/scripts/authentication.js"></script>
 		<script>
 			firebase.auth().onAuthStateChanged((user) => {
-				if (!user) location.assign('/login.html');
-				else location.assign('/main.html');
+				if (!user) return;
+				location.assign('main.html');
+
 			});
 		</script>
-		</div>
+	</div>
 	</div>
 </body>
 

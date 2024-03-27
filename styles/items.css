@@ -123,3 +123,28 @@ label {
     border: 1px solid black;
 }
 
+/* Custom dropdown menu styling */
+.dropdown-menu {
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.15); 
+    outline-style: solid 3px;
+    outline-color: black;
+}
+
+.dropdown-item {
+    color: #000; 
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+#category-dropdown .dropdown-item {
+    background-color: white;
+}
+
+
+#sort-by {
+    background-color: #5a6650ff !important;
+    color: white;
+}
