@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let itemIdToEdit = null;
     let userId = null;
 
+    
+
     // Fetch items from Firestore
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
@@ -113,23 +115,31 @@ document.addEventListener('DOMContentLoaded', function () {
         event.stopPropagation();
     });
 
-    // Event listener for category buttons
-const categoryButtons = document.querySelectorAll('.category-btn');
-categoryButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const category = button.dataset.category;
-        editCategoryInput.value = category;
-        // Toggle active class for styling (optional)
-        categoryButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
+    const categoryButtons = document.querySelectorAll('.category-btn');
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const category = button.dataset.category;
+            editCategoryInput.value = category;
+            // Toggle active class for styling (optional)
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
 
-        // Filter items by selected category
-        filterItemsByCategory(category);
+            // Filter items by selected category
+            filterItemsByCategory(category);
 
-        // Code that fixes the double click sortBy bug.
-        sortBy(); 
-    });
-});
+            // Reset search input value to empty string
+            searchInput.value = '';
+
+            // Show all items when "All" category is selected
+            if (category === 'All') {
+                const cards = itemsContainer.querySelectorAll('.card');
+                cards.forEach(card => {
+                    card.style.display = 'block';
+                });
+            }});
+        });
+
+
 
 
     // Function to handle editing item details
@@ -222,7 +232,7 @@ function filterItemsByCategory(category) {
             card.style.display = 'block';
         } 
         else {
-            card.style.display = 'none';
+            card.style.display = 'none';      
         }
     });
 }
