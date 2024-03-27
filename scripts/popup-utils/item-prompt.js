@@ -18,7 +18,7 @@ const editableTemplate = fetch('/scripts/skeletons/prompt-editable-selectable-it
 		return template;
 	});
 
-async function renderTempItem(itemRef, onToggle, editable) {
+async function renderTempItem(itemRef, onToggle) {
 	const frag = (await editableTemplate).content.cloneNode(true);
 
 	const name = frag.querySelector('.template-name');
@@ -60,7 +60,7 @@ async function renderTempItem(itemRef, onToggle, editable) {
 	return frag;
 }
 
-async function renderItem(item, onToggle, editable) {
+async function renderItem(item, onToggle) {
 	const frag = (await template).content.cloneNode(true);
 
 	const name = frag.querySelector('.template-name');
@@ -72,11 +72,11 @@ async function renderItem(item, onToggle, editable) {
 	return frag;
 }
 
-export async function promptForItems(temporaryItems = false) {
+export async function promptForItems(temporaryItems = false, multiSelect = true) {
 	const itemsToAdd = new Set();
 
 	const res = await Swal.fire({
-		titleText: 'Add Items',
+		titleText: `Select ${multiSelect ? 'Items' : 'Item'}`,
 		html: ' ',
 		showConfirmButton: true,
 		showCancelButton: true,
@@ -86,11 +86,20 @@ export async function promptForItems(temporaryItems = false) {
 			cancelButton: 'btn btn-danger',
 		},
 		preConfirm: (popup) => itemsToAdd,
-		willOpen: () => Swal.showLoading(),
+		willOpen: () => {
+			Swal.showLoading();
+			if (multiSelect === false) {
+				Swal.getConfirmButton().style.display = 'none';
+			}
+		},
 		didOpen: async (popup) => {
 			const onItemToggle = (item, checked) => {
 				if (checked) itemsToAdd.add(item);
 				else itemsToAdd.delete(item);
+
+				if (multiSelect === false) {
+					Swal.getConfirmButton().click();
+				}
 			};
 
 			const container = document.createElement('div');
@@ -110,6 +119,7 @@ export async function promptForItems(temporaryItems = false) {
 				const addBtn = document.createElement('button');
 				addBtn.classList.add('btn', 'btn-primary');
 				addBtn.innerText = '+ New Temporary Item';
+				if (multiSelect === false) addBtn.style.display = 'none';
 
 				const addTemporaryItem = async () => {
 					const newItem = { temporary: true };
@@ -136,5 +146,10 @@ export async function promptForItems(temporaryItems = false) {
 	});
 
 	if (!res.isConfirmed) itemsToAdd.clear();
-	return itemsToAdd;
+
+	if (multiSelect === false) {
+		for (const item of itemsToAdd) {
+			if (item) return item;
+		}
+	} else return itemsToAdd;
 }

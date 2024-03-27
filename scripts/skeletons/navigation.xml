@@ -31,9 +31,6 @@
 						<a class="nav-link" aria-current="page" href="/main.html">Home</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/settings.html">Settings</a>
-					</li>
-					<li class="nav-item">
 						<a class="nav-link" href="/lists">My Lists</a>
 					</li>
 					<li class="nav-item">
@@ -44,6 +41,9 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/faqs">FAQ's</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/settings.html">Settings</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/contact.html">Contact us</a>
