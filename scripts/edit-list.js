@@ -98,7 +98,7 @@ function renderItem(listItem) {
 
 async function handleAddNewItems() {
 	const itemsToAdd = await promptForItems();
-	itemsToAdd.forEach((item) => renderItem({ quantity: 1, item }));
+	if (itemsToAdd instanceof Set) itemsToAdd.forEach((item) => renderItem({ quantity: 1, item }));
 }
 
 function fillFields(data) {

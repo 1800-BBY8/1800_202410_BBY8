@@ -233,7 +233,7 @@ async function promptForQuantityAndPrice(initQuantity) {
 
 function exit() {
 	if (id) location.assign(`/lists/list.html?id=${id}`);
-	else location.assign('/lists');
+	else location.assign('/main.html');
 }
 
 async function endTrip() {
@@ -257,7 +257,7 @@ async function endTrip() {
 
 async function addItems(custom) {
 	const itemsToAdd = await promptForItems(custom);
-	itemsToAdd.forEach((item) => renderItem({ item }));
+	if (itemsToAdd instanceof Set) itemsToAdd.forEach((item) => renderItem({ item }));
 }
 
 async function setupTripFromList(list) {
