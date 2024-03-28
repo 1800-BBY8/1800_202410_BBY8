@@ -3,16 +3,15 @@ var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
 var uiConfig = {
 	callbacks: {
-		signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+		signInSuccessWithAuthResult: async (authResult, redirectUrl) => {
 			if (authResult.additionalUserInfo.isNewUser) {
 				const user = authResult.user;
 
-				usersCollection
-					.doc(user.uid)
-					.set({
-						name: user.displayName,
-						email: user.email,
-					})
+				const doc = db.collection(CollectionKeys.USERS).doc(user.uid);
+				doc.set({
+					name: user.displayName,
+					email: user.email,
+				})
 					.then(() => location.assign('main.html'))
 					.catch(() => console.log('Error adding new user: ' + error));
 			} else return true;
