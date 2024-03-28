@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', () => {
             const category = button.dataset.category;
             editCategoryInput.value = category;
-            // Toggle active class for styling (optional)
+            // Toggle active class for styling
             categoryButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
 
@@ -143,10 +143,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-
-
-
-
     // Function to handle editing item details
     editItemForm.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -157,8 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const editedImageFile = editImageInput.files[0];
 
         if (editedItemName === '' || editedCategory === '') {
-            // Handle empty input fields
-            // You can display an error message to the user
+            //  Display an error message to the user (when we got time)
             return;
         }
 
@@ -266,7 +261,3 @@ searchInput.addEventListener('input', () => {
         card.style.display = display;
     });
 });
-
-
-
-
