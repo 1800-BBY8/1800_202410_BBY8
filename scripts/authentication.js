@@ -3,7 +3,7 @@ var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
 var uiConfig = {
 	callbacks: {
-		signInSuccessWithAuthResult: async (authResult, redirectUrl) => {
+		signInSuccessWithAuthResult: (authResult, redirectUrl) => {
 			if (authResult.additionalUserInfo.isNewUser) {
 				const user = authResult.user;
 
@@ -11,12 +11,8 @@ var uiConfig = {
 				doc.set({
 					name: user.displayName,
 					email: user.email,
-				})
-					.then(() => location.assign('main.html'))
-					.catch(() => console.log('Error adding new user: ' + error));
+				}).then(() => location.assign('main.html'));
 			} else return true;
-
-			return false;
 		},
 		uiShown: function () {
 			// The widget is rendered.
