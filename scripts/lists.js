@@ -39,3 +39,19 @@ getLists().then((listsData) => {
 	if (elements.length === 0) document.getElementById('no-list-display').classList.remove('d-none');
 	for (const el of elements) listsContainer.appendChild(el);
 });
+
+document.getElementById('lists-search').addEventListener('input', (e) => {
+	const _query = e.target.value;
+	const query = typeof _query === 'string' ? _query.trim().toLowerCase() : '';
+
+	for (const child of listsContainer.children) {
+		if (!child.classList.contains('each-list')) continue;
+
+		const name = child.querySelector('.template-name')?.innerText?.toLowerCase() ?? '';
+		const desc = child.querySelector('.template-desc')?.innerText?.toLowerCase() ?? '';
+
+		const match = !query || name.includes(query) || desc.includes(query);
+		if (match) child.classList.remove('d-none');
+		else child.classList.add('d-none');
+	}
+});
