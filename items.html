@@ -1,146 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<title>Mr. Listr - My Items</title>
+		<meta name="description" content="Your one stop shop buddy." />
 
-<head>
-    <title>Mr. Listr - My Items</title>
-    <meta name="description" content="Your one stop shop buddy." />
-    <!-- Bootstrap Library CSS CDN go here -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <!-- Boostrap Library JS CDN  go here -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!-- Bootstrap Library CSS CDN go here -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+			crossorigin="anonymous"
+		/>
+		<!-- Boostrap Library JS CDN  go here -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+			crossorigin="anonymous"
+		></script>
 
-    <!-- Other libraries go here -->
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet"
-        href="https://unpkg.com/bs-brain@2.0.3/components/contacts/contact-1/assets/css/contact-1.css">
+		<!-- Other libraries go here -->
+		<link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/bs-brain@2.0.3/components/contacts/contact-1/assets/css/contact-1.css"
+		/>
 
+		<!-- ion icons  -->
+		<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+		<script src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-    <!-- ion icons  -->
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+		<!-- Link to styles of your own -->
+		<link rel="stylesheet" href="/styles/contact.css" />
+		<link rel="stylesheet" href="/styles/global.css" />
+		<link rel="stylesheet" href="/styles/main.css" />
+		<link rel="stylesheet" href="/styles/items.css" />
 
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+	</head>
 
-    <path
-        d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951" />
-    </svg>
+	<body class="h-100">
+		<div id="navigation-placeholder"></div>
+		<script src="/scripts/load-dynamic-navigation.js"></script>
 
+		<div class="container h-100 d-flex flex-column align-items-center">
+			<div class="input-group shadow-sm mb-3">
+				<span class="input-group-text border-1 border-black">🔍</span>
+				<input
+					type="text"
+					class="form-control border-1 border-black"
+					id="items-search"
+					name="items-search"
+					placeholder="Search your items"
+				/>
+			</div>
 
-    <!-- Link to styles of your own -->
-    <link rel="stylesheet" href="/styles/contact.css" />
-    <link rel="stylesheet" href="/styles/global.css" />
-    <link rel="stylesheet" href="/styles/main.css" />
-    <link rel="stylesheet" href="/styles/items.css" />
+			<div>
+				<a href="/items/create_items.html" class="btn btn-primary"> + Add an item </a>
+				<!-- Sort By : Allows user to search for specific group items -->
+				<button
+					type="button"
+					id="sort-by"
+					class="btn btn-primary sort-by dropdown-toggle"
+					data-bs-toggle="dropdown"
+					aria-expanded="false"
+				>
+					Sort By
+				</button>
+				<div class="btn-group">
+					<ul class="dropdown-menu" id="category-dropdown">
+						<li>
+							<button class="dropdown-item category-btn" type="button" data-category="All">
+								All
+							</button>
+						</li>
+						<li>
+							<button class="dropdown-item category-btn" type="button" data-category="Protein">
+								Protein
+							</button>
+						</li>
+						<li>
+							<button
+								class="dropdown-item category-btn"
+								type="button"
+								data-category="Carbohydrates"
+							>
+								Carbohydrates
+							</button>
+						</li>
+						<li>
+							<button class="dropdown-item category-btn" type="button" data-category="Drinks">
+								Drinks
+							</button>
+						</li>
+						<li>
+							<button class="dropdown-item category-btn" type="button" data-category="Fats">
+								Fats
+							</button>
+						</li>
+						<li>
+							<button class="dropdown-item category-btn" type="button" data-category="Snacks">
+								Snacks
+							</button>
+						</li>
+						<li>
+							<button class="dropdown-item category-btn" type="button" data-category="Produce">
+								Produce
+							</button>
+						</li>
+						<li>
+							<button class="dropdown-item category-btn" type="button" data-category="Misc">
+								Misc
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
-</head>
+			<br />
+			<div id="empty-list-placeholder" class="text-muted" style="display: none">
+				Item List is currently empty...
+			</div>
+			<div id="items-container" class="w-100 d-flex flex-column gap-2 pb-4">
+				<!-- Firebase Items go here -->
+			</div>
+		</div>
 
-<body class="h-100">
-    <div id="navigation-placeholder"></div>
-    <script src="/scripts/load-dynamic-navigation.js"></script>
+		<!-- Add a pop-up edit form -->
+		<div id="edit-form" class="modal">
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<h2>Edit Item</h2>
+				<form id="edit-item-form" enctype="multipart/form-data">
+					<div class="form-group">
+						<label for="edit-item-name">Item Name:</label>
+						<input
+							type="text"
+							id="edit-item-name"
+							name="edit-item-name"
+							class="form-control"
+							required
+						/>
+					</div>
+					<div class="form-group form-check">
+						<input
+							type="checkbox"
+							class="form-check-input"
+							id="edit-favorite"
+							name="edit-favorite"
+						/>
+						<label class="form-check-label" for="edit-favorite">Favorite 💖</label>
+					</div>
 
-    <div class="container p-3 pt-5 mt-5 w-100 h-100 d-flex flex-column align-items-center">
-        <div class="input-group shadow-sm mb-3">
-            <span class="input-group-text border-1 border-black">🔍</span>
-            <input type="text" class="form-control border-1 border-black" id="items-search" name="items-search"
-                placeholder="Search your items" />
+					<div class="form-group">
+						<label>Category:</label>
+						<div class="btn-group" role="group" aria-label="Category">
+							<button
+								type="button"
+								class="btn btn-secondary category-btn"
+								data-category="Protein"
+							>
+								Protein
+							</button>
+							<button
+								type="button"
+								class="btn btn-secondary category-btn"
+								data-category="Carbohydrates"
+							>
+								Carbohydrates
+							</button>
+							<button
+								type="button"
+								class="btn btn-secondary category-btn"
+								data-category="Drinks"
+							>
+								Drinks
+							</button>
+							<button type="button" class="btn btn-secondary category-btn" data-category="Fats">
+								Fats
+							</button>
+							<button
+								type="button"
+								class="btn btn-secondary category-btn"
+								data-category="Snacks"
+							>
+								Snacks
+							</button>
+							<button
+								type="button"
+								class="btn btn-secondary category-btn"
+								data-category="Produce"
+							>
+								Produce
+							</button>
+							<button type="button" class="btn btn-secondary category-btn" data-category="Misc">
+								Misc
+							</button>
+						</div>
+						<input type="hidden" id="edit-category" name="edit-category" />
+					</div>
+					<div class="form-group">
+						<label for="edit-description">Description:</label>
+						<textarea
+							id="edit-description"
+							name="edit-description"
+							class="form-control"
+						></textarea>
+					</div>
+					<div class="form-group">
+						<label for="edit-image">Image:</label>
+						<input
+							type="file"
+							id="edit-image"
+							name="edit-image"
+							class="form-control-file"
+							accept="image/*"
+						/>
+					</div>
+					<button type="submit" class="btn btn-primary">Save Changes</button>
+				</form>
+			</div>
+		</div>
 
-        </div>
-
-        <div>
-            <a href="/items/create_items.html" class="d-inline-block me-3">
-                <button class="btn btn-primary">+ Add an item</button>
-            </a>
-            <!-- Sort By : Allows user to search for specific group items -->
-            <button type="button" id="sort-by" class="btn btn-primary sort-by dropdown-toggle" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Sort By
-            </button>
-            <div class="btn-group">
-                <ul class="dropdown-menu" id="category-dropdown" aria-labelledby="dropdownMenuButton">
-                    <li><button id="category-choice" class="dropdown-item category-btn" type="button"
-                            data-category="All">All</button></li>
-                    <li><button id="category-choice" class="dropdown-item category-btn" type="button"
-                            data-category="Protein">Protein</button></li>
-                    <li><button id="category-choice" class="dropdown-item category-btn" type="button"
-                            data-category="Carbohydrates">Carbohydrates</button></li>
-                    <li><button id="category-choice" class="dropdown-item category-btn" type="button"
-                            data-category="Drinks">Drinks</button></li>
-                    <li><button id="category-choice" class="dropdown-item category-btn" type="button"
-                            data-category="Fats">Fats</button></li>
-                    <li><button id="category-choice" class="dropdown-item category-btn" type="button"
-                            data-category="Snacks">Snacks</button></li>
-                    <li><button id="category-choice" class="dropdown-item category-btn" type="button"
-                            data-category="Produce">Produce</button></li>
-                    <li><button id="category-choice" class="dropdown-item category-btn" type="button"
-                            data-category="Misc">Misc</button></li>
-                </ul>
-            </div>
-        </div>
-
-
-
-        <br>
-        <div id="empty-list-placeholder" class="text-muted" style="display: none;">Item List is currently empty...</div>
-        <div id="items-container" class="w-100 d-flex flex-column gap-2 pb-4">
-            <!-- Firebase Items go here -->
-        </div>
-    </div>
-
-    <!-- Add a pop-up edit form -->
-    <div id="edit-form" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Edit Item</h2>
-            <form id="edit-item-form" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="edit-item-name">Item Name:</label>
-                    <input type="text" id="edit-item-name" name="edit-item-name" class="form-control" required>
-                </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="edit-favorite" name="edit-favorite">
-                    <label class="form-check-label" for="edit-favorite">Favorite 💖</label>
-                </div>
-                
-
-                <div class="form-group">
-                    <label>Category:</label>
-                    <div class="btn-group" role="group" aria-label="Category">
-                        <button type="button" class="btn btn-secondary category-btn"
-                            data-category="Protein">Protein</button>
-                        <button type="button" class="btn btn-secondary category-btn"
-                            data-category="Carbohydrates">Carbohydrates</button>
-                        <button type="button" class="btn btn-secondary category-btn"
-                            data-category="Drinks">Drinks</button>
-                        <button type="button" class="btn btn-secondary category-btn" data-category="Fats">Fats</button>
-                        <button type="button" class="btn btn-secondary category-btn"
-                            data-category="Snacks">Snacks</button>
-                        <button type="button" class="btn btn-secondary category-btn"
-                            data-category="Produce">Produce</button>
-                        <button type="button" class="btn btn-secondary category-btn" data-category="Misc">Misc</button>
-                    </div>
-                    <input type="hidden" id="edit-category" name="edit-category">
-                </div>
-                <div class="form-group">
-                    <label for="edit-description">Description:</label>
-                    <textarea id="edit-description" name="edit-description" class="form-control"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="edit-image">Image:</label>
-                    <input type="file" id="edit-image" name="edit-image" class="form-control-file" accept="image/*">
-                </div>
-                <button type="submit" class="btn btn-primary">Save Changes</button>
-            </form>
-        </div>
-    </div>
-
-    <script src="/scripts/firebaseAPI_BBY8.js"></script>
-    <script src="/scripts/items.js"></script>
-</body>
-
+		<script src="/scripts/firebaseAPI_BBY8.js"></script>
+		<script src="/scripts/items.js"></script>
+	</body>
 </html>

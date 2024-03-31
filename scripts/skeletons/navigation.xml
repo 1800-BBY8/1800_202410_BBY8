@@ -1,18 +1,20 @@
-<nav class="navbar navbar-dark bg-dark">
-	<div class="d-flex align-items-center w-100 ms-3 me-3">
-		<div>
+<nav class="navbar navbar-dark bg-dark mb-4">
+	<div class="row w-100 mx-2 d-flex align-items-center">
+		<div class="col">
 			<button class="m-0 me-2 navbar-toggler nav-back-btn d-none">&lt;</button>
 			<a data-fillwith="navbar-title" class="navbar-brand" href="/main.html">Mr. Listr</a>
 		</div>
-		<button
-			class="navbar-toggler ms-auto"
-			type="button"
-			data-bs-toggle="offcanvas"
-			data-bs-target="#offcanvasDarkNavbar"
-			aria-controls="offcanvasDarkNavbar"
-		>
-			<span class="navbar-toggler-icon"></span>
-		</button>
+		<div class="col col-auto">
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-bs-toggle="offcanvas"
+				data-bs-target="#offcanvasDarkNavbar"
+				aria-controls="offcanvasDarkNavbar"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		</div>
 		<div
 			class="offcanvas offcanvas-end text-bg-dark"
 			tabindex="-1"

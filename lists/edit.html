@@ -35,7 +35,7 @@
 		<div id="navigation-placeholder"></div>
 		<script src="/scripts/load-dynamic-navigation.js"></script>
 
-		<div class="container p-3 pt-5 mt-5 w-100 h-100">
+		<div class="container h-100">
 			<form id="edit-list-form" class="pb-5">
 				<div class="mb-3">
 					<label for="list-name" class="form-label"
@@ -88,7 +88,11 @@
 										class="btn btn-outline-secondary template-quantity-increment"
 										value="+"
 									/>
-									<input type="button" class="btn btn-danger template-delete" value="🗑️" />
+									<input
+										type="button"
+										class="btn btn-outline-danger small template-delete"
+										value="✖"
+									/>
 								</div>
 							</div>
 						</template>
@@ -108,15 +112,10 @@
 
 				<hr />
 
-				<div class="d-flex gap-2">
+				<div class="d-flex flex-column gap-2 flex-md-row">
 					<input type="submit" id="save-list-button" class="btn btn-primary" value="Save Changes" />
 					<input type="button" id="add-item-button" class="btn btn-primary" value="Add Items" />
-					<input
-						type="button"
-						id="delete-list-button"
-						class="btn btn-danger ms-auto"
-						value="Delete List"
-					/>
+					<input type="button" id="delete-list-button" class="btn btn-danger ms-md-auto" value="Delete List" />
 				</div>
 			</form>
 		</div>

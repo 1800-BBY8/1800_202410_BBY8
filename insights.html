@@ -1,58 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Required meta tags -->
-
-<head>
-	<title>Mr. Listr - Insights</title>
-	<meta name="description" content="Your one stop shop buddy." />
-
 	<!-- Required meta tags -->
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-	<!-- Bootstrap Library CSS CDN go here -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+	<head>
+		<title>Mr. Listr - Insights</title>
+		<meta name="description" content="Your one stop shop buddy." />
 
-	<!-- Boostrap Library JS CDN  go here -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-		crossorigin="anonymous"></script>
+		<!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-	<!--Firebase Links-->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script> 
-    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+		<!-- Bootstrap Library CSS CDN go here -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+			crossorigin="anonymous"
+		/>
 
-	<!-- Link to styles of your own -->
-	<link rel="stylesheet" href="/styles/global.css" />
-	<link rel="stylesheet" href="/styles/insights.css" />
+		<!-- Boostrap Library JS CDN  go here -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+			crossorigin="anonymous"
+		></script>
 
-	<!-- Load Google Charts -->
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<!--Firebase Links-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+		<link
+			type="text/css"
+			rel="stylesheet"
+			href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css"
+		/>
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 
+		<!-- Link to styles of your own -->
+		<link rel="stylesheet" href="/styles/global.css" />
+		<link rel="stylesheet" href="/styles/insights.css" />
 
-</head>
+		<!-- Load Google Charts -->
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	</head>
 
-<body class="h-100">
-	<div id="navigation-placeholder"></div>
-	<script src="/scripts/load-dynamic-navigation.js"></script>
+	<body class="h-100">
+		<div id="navigation-placeholder"></div>
+		<script src="/scripts/load-dynamic-navigation.js"></script>
 
-	<div class="container p-3 pt-5 mt-5 w-100 h-100 d-flex flex-column align-items-center">
-		
-		<div id="chartContainer">
-		<img id="placeholderImage" src="images/insights-main.svg" alt="placeholderImage" />
-		<div id="chart1_div" class="d-none" style="width: 90vw; height: 40vh;"></div>
-		<div id="chart2_div" class="d-none" style="width: 90vw; height: 40vh;"></div>
-		<div id="chart3_div" class="d-none" style="width: 90vw; height: 50vh;"></div>
-		</div>
+		<div class="container p-3 d-flex flex-column align-items-center">
+			<div id="chartContainer">
+				<img id="placeholderImage" src="images/insights-main.svg" alt="placeholderImage" />
+				<div id="chart1_div" class="d-none" style="width: 90vw; height: 40vh"></div>
+				<div id="chart2_div" class="d-none" style="width: 90vw; height: 40vh"></div>
+				<div id="chart3_div" class="d-none" style="width: 90vw; height: 50vh"></div>
+			</div>
 
-	<!-- Button group to select which time range to look at the data, not implemented yet. -->
-	<!--	<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+			<!-- Button group to select which time range to look at the data, not implemented yet. -->
+			<!--	<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
 			<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked />
 			<label class="btn btn-outline-primary" for="btnradio1">Weekly</label>
 
@@ -64,41 +71,45 @@
 		</div>
 		-->
 
-		<div class="w-100 d-flex flex-column gap-2 pb-4">
-			<div class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2">
-				<div class="w-100 flex-grow-1">
-					<div class="d-flex align-items-center justify-content-between justify-content-md-start gap-3 mb-2">
-						<p class="mb-0 fw-bold fs-5">Item Costs</p>
+			<div class="w-100 d-flex flex-column gap-2">
+				<div class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2">
+					<div class="w-100 flex-grow-1">
+						<div
+							class="d-flex align-items-center justify-content-between justify-content-md-start gap-3 mb-2"
+						>
+							<p class="mb-0 fw-bold fs-5">Item Costs</p>
+						</div>
+						<p class="mb-0">Select an item and display the price paid.</p>
 					</div>
-					<p class="mb-0">Select an item and display the price paid.</p>
+					<button type="button" id="itemCosts" class="btn btn-secondary category-btn">➡️</button>
 				</div>
-				<button type="button" id="itemCosts" class="btn btn-secondary category-btn">➡️</button>
-				
-			</div>
 
-			<div class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2">
-				<div class="w-100 flex-grow-1">
-					<div class="d-flex align-items-center justify-content-between justify-content-md-start gap-3 mb-2">
-						<p class="mb-0 fw-bold fs-5">Categories</p>
+				<div class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2">
+					<div class="w-100 flex-grow-1">
+						<div
+							class="d-flex align-items-center justify-content-between justify-content-md-start gap-3 mb-2"
+						>
+							<p class="mb-0 fw-bold fs-5">Categories</p>
+						</div>
+						<p class="mb-0">Categories of items purchased.</p>
 					</div>
-					<p class="mb-0">Categories of items purchased.</p>
+					<button type="button" id="categories" class="btn btn-secondary category-btn">➡️</button>
 				</div>
-				<button type="button" id="categories" class="btn btn-secondary category-btn">➡️</button>
-			</div>
 
-			<div class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2">
-				<div class="w-100 flex-grow-1">
-					<div class="d-flex align-items-center justify-content-between justify-content-md-start gap-3 mb-2">
-						<p class="mb-0 fw-bold fs-5">Overall Spending</p>
+				<div class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2">
+					<div class="w-100 flex-grow-1">
+						<div
+							class="d-flex align-items-center justify-content-between justify-content-md-start gap-3 mb-2"
+						>
+							<p class="mb-0 fw-bold fs-5">Overall Spending</p>
+						</div>
+						<p class="mb-0">Overall money spent from each list.</p>
 					</div>
-					<p class="mb-0">Overall money spent from each list.</p>
+					<button type="button" id="overall" class="btn btn-secondary category-btn">➡️</button>
 				</div>
-				<button type="button" id="overall" class="btn btn-secondary category-btn">➡️</button>
 			</div>
 		</div>
-	</div>
-	<script src="/scripts/firebaseAPI_BBY8.js"></script>
-	<script type="module" src="/scripts/insights.js"></script>
-</body>
-
+		<script src="/scripts/firebaseAPI_BBY8.js"></script>
+		<script type="module" src="/scripts/insights.js"></script>
+	</body>
 </html>
