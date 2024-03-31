@@ -239,6 +239,7 @@ function exit() {
 async function endTrip() {
 	const infoToSave = {};
 	infoToSave.boughtItems = tripInfo.boughtItems;
+	infoToSave.createdAt = new Date().getTime();
 
 	if (id) infoToSave.initiateListId = id;
 
