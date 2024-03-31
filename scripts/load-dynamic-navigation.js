@@ -8,7 +8,7 @@ function fillDynamicsInNavigation(el) {
 
 	const backButton = el.querySelector('.nav-back-btn');
 	backButton.addEventListener('click', goBack);
-	backButton.classList.toggle('d-none', location.pathname === '/main.html');
+	backButton.classList.toggle('d-md-inline', location.pathname !== '/main.html');
 }
 
 function canGoBack() {

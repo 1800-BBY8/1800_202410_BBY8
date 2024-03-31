@@ -1,11 +1,11 @@
 <nav class="navbar navbar-dark bg-dark">
-	<div class="container-fluid">
+	<div class="d-flex align-items-center w-100 ms-3 me-3">
 		<div>
-			<button class="m-0 me-2 navbar-toggler nav-back-btn">&lt;</button>
+			<button class="m-0 me-2 navbar-toggler nav-back-btn d-none">&lt;</button>
 			<a data-fillwith="navbar-title" class="navbar-brand" href="/main.html">Mr. Listr</a>
 		</div>
 		<button
-			class="navbar-toggler"
+			class="navbar-toggler ms-auto"
 			type="button"
 			data-bs-toggle="offcanvas"
 			data-bs-target="#offcanvasDarkNavbar"
