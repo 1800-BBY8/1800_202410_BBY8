@@ -73,8 +73,7 @@
 				<script src="/scripts/firebaseAPI_BBY8.js"></script>
 				<script>
 					firebase.auth().onAuthStateChanged((user) => {
-						if (!user) location.assign('/login.html');
-						else location.assign('/main.html');
+						if (user) location.assign('/main.html');
 					});
 				</script>
 			</div>
