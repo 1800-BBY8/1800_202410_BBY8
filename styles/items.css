@@ -148,3 +148,11 @@ label {
     background-color: #5a6650ff !important;
     color: white;
 }
+
+#successMessage {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+}
