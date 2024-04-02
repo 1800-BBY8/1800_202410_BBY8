@@ -33,11 +33,23 @@
 		<link rel="stylesheet" href="/styles/global.css" />
 	</head>
 
-	<body class="h-100">
+	<body>
 		<div id="navigation-placeholder"></div>
 		<script src="/scripts/load-dynamic-navigation.js"></script>
 
-		<div class="container p-3 pt-5 mt-5 w-100 h-100 d-flex flex-column align-items-center">
+		<div class="container d-flex flex-column align-items-center">
+			<div class="input-group shadow-sm mb-3">
+				<span class="input-group-text border-1 border-black">🔍</span>
+				<input
+					type="text"
+					class="form-control border-1 border-black"
+					id="lists-search"
+					name="lists-search"
+					placeholder="Search your lists"
+				/>
+				<a class="btn btn-primary input-group-text fs-5" href="/lists/create.html">+</a>
+			</div>
+
 			<!-- If user has no lists -->
 			<div id="no-list-display" class="text-center d-none mt-4">
 				<p class="me-0">You do not have any lists.</p>
@@ -45,7 +57,9 @@
 
 			<div id="lists" class="w-100 d-flex flex-column gap-2 pb-4">
 				<template id="list">
-					<div class="w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2">
+					<div
+						class="each-list w-100 bg-primary-subtle p-3 rounded-3 border border-black d-flex gap-2"
+					>
 						<div class="w-100 flex-grow-1 d-flex flex-column justify-content-center gap-2">
 							<div
 								class="d-flex align-items-center justify-content-between justify-content-sm-start gap-3"
@@ -64,7 +78,7 @@
 				</template>
 			</div>
 
-			<a href="/lists/create.html" class="btn btn-primary" type="button">+ Add a list</a>
+			<a href="/lists/create.html" class="btn btn-primary">+ Add a list</a>
 		</div>
 
 		<script src="/scripts/firebaseAPI_BBY8.js"></script>

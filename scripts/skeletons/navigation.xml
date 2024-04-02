@@ -1,15 +1,20 @@
-<nav class="navbar navbar-dark bg-dark fixed-top">
-	<div class="container-fluid">
-		<a data-fillwith="navbar-title" class="navbar-brand" href="/main.html">Mr. Listr</a>
-		<button
-			class="navbar-toggler"
-			type="button"
-			data-bs-toggle="offcanvas"
-			data-bs-target="#offcanvasDarkNavbar"
-			aria-controls="offcanvasDarkNavbar"
-		>
-			<span class="navbar-toggler-icon"></span>
-		</button>
+<nav class="navbar navbar-dark bg-dark mb-4">
+	<div class="row w-100 mx-2 d-flex align-items-center">
+		<div class="col">
+			<button class="m-0 me-2 navbar-toggler nav-back-btn d-none">&lt;</button>
+			<a data-fillwith="navbar-title" class="navbar-brand" href="/main.html">Mr. Listr</a>
+		</div>
+		<div class="col col-auto">
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-bs-toggle="offcanvas"
+				data-bs-target="#offcanvasDarkNavbar"
+				aria-controls="offcanvasDarkNavbar"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		</div>
 		<div
 			class="offcanvas offcanvas-end text-bg-dark"
 			tabindex="-1"
@@ -31,7 +36,7 @@
 						<a class="nav-link" aria-current="page" href="/main.html">Home</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/lists">My Lists</a>
+						<a class="nav-link" href="/lists/">My Lists</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/items.html">My Items</a>
@@ -40,7 +45,7 @@
 						<a class="nav-link" href="/insights.html">Insights</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/faqs">FAQ's</a>
+						<a class="nav-link" href="/faqs/">FAQ's</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/settings.html">Settings</a>

@@ -17,9 +17,10 @@ function renderItem(item) {
 }
 
 function renderList(listData) {
-	const editUrl = `/lists/edit.html?id=${listData.id}`;
-	document.getElementById('configure-list-link').href = editUrl;
-	document.getElementById('add-item-link').href = editUrl;
+	for (const el of document.getElementsByClassName('configure-list-link')) {
+		el.href = `/lists/edit.html?id=${listData.id}`;
+	}
+
 	document.getElementById('start-trip-link').href = `/trip.html?id=${listData.id}`;
 	document.getElementById('list-name').innerText = listData.name;
 	document.getElementById('list-description').innerText = listData.description;
@@ -37,3 +38,18 @@ else {
 		else renderList(list);
 	});
 }
+
+document.getElementById('list-search').addEventListener('input', (e) => {
+	const _query = e.target.value;
+	const query = typeof _query === 'string' ? _query.trim().toLowerCase() : '';
+
+	for (const child of itemsContainer.children) {
+		if (!child.classList.contains('each-item')) continue;
+
+		const name = child.querySelector('.template-item-name')?.innerText?.toLowerCase() ?? '';
+
+		const match = !query || name.includes(query);
+		if (match) child.classList.remove('d-none');
+		else child.classList.add('d-none');
+	}
+});

@@ -42,7 +42,7 @@ export async function getListWithResolvedItems(id) {
 
 export async function createList(data) {
 	const docRef = await getListRef();
-	await docRef.set(data);
+	await docRef.set({ ...data, createdAt: new Date().getTime() });
 }
 
 export async function updateList(id, data) {

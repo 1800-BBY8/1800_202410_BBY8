@@ -1,84 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<title>Mr. Listr - My Items</title>
+		<meta name="description" content="Your one stop shop buddy." />
 
-<head>
-    <title>Mr. Listr - My Items</title>
-    <meta name="description" content="Your one stop shop buddy." />
-    <!-- Bootstrap Library CSS CDN go here -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <!-- Boostrap Library JS CDN  go here -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Other libraries go here -->
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet"
-        href="https://unpkg.com/bs-brain@2.0.3/components/contacts/contact-1/assets/css/contact-1.css">
+		<!-- Bootstrap Library CSS CDN go here -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+			crossorigin="anonymous"
+		/>
+		<!-- Boostrap Library JS CDN  go here -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+			crossorigin="anonymous"
+		></script>
 
-    <!-- ion icons  -->
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+		<!-- Other libraries go here -->
+		<link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/bs-brain@2.0.3/components/contacts/contact-1/assets/css/contact-1.css"
+		/>
 
-    <!-- stylesheet -->
-    <link rel="stylesheet" href="/styles/global.css" />
-    <link rel="stylesheet" href="/styles/main.css" />
-    <link rel="stylesheet" href="/styles/items.css" /> 
+		<!-- ion icons  -->
+		<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+		<script src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+		<!-- stylesheet -->
+		<link rel="stylesheet" href="/styles/global.css" />
+		<link rel="stylesheet" href="/styles/main.css" />
+		<link rel="stylesheet" href="/styles/items.css" />
+
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+	</head>
 
-</head>
+	<body>
+		<div id="navigation-placeholder"></div>
+		<script src="/scripts/load-dynamic-navigation.js"></script>
 
-<body>
-    <div id="navigation-placeholder"></div>
-    <script src="/scripts/load-dynamic-navigation.js"></script>
+		<div class="container">
+			<form id="submit">
+				<div class="mb-3 mt-3">
+					<h2>Create a New Item</h2>
+					<label for="item_name">Item Name</label>
+					<input type="text" class="form-control" id="item_name" name="item_name" />
+				</div>
+				<div class="mb-3">
+					<label>Category</label><br />
+					<button type="button" class="btn btn-secondary category-btn" data-category="Protein">
+						Protein
+					</button>
+					<button
+						type="button"
+						class="btn btn-secondary category-btn"
+						data-category="Carbohydrates"
+					>
+						Carbohydrates
+					</button>
+					<button type="button" class="btn btn-secondary category-btn" data-category="Drinks">
+						Drinks
+					</button>
+					<button type="button" class="btn btn-secondary category-btn" data-category="Fats">
+						Fats
+					</button>
+					<button type="button" class="btn btn-secondary category-btn" data-category="Snacks">
+						Snacks
+					</button>
+					<button type="button" class="btn btn-secondary category-btn" data-category="Produce">
+						Produce
+					</button>
+					<button type="button" class="btn btn-secondary category-btn" data-category="Misc">
+						Misc
+					</button>
 
-    
-    <div class="container mt-3">
-        <h2>Stacked form</h2>
-        <form id="submit"> 
-            <div class="mb-3 mt-3">
-                <h2>Add Items</h2>
-                <label for="item_name">Item Name</label>
-                <input type="text" class="form-control" id="item_name" name="item_name">
-            </div>
-            <div class="mb-3">
-                <label for="category">Category</label><br>
-                <button type="button" class="btn btn-secondary category-btn" data-category="Protein">Protein</button>
-                <button type="button" class="btn btn-secondary category-btn"
-                    data-category="Carbohydrates">Carbohydrates</button>
-                <button type="button" class="btn btn-secondary category-btn" data-category="Drinks">Drinks</button>
-                <button type="button" class="btn btn-secondary category-btn" data-category="Fats">Fats</button>
-                <button type="button" class="btn btn-secondary category-btn" data-category="Snacks">Snacks</button>
-                <button type="button" class="btn btn-secondary category-btn" data-category="Produce">Produce</button>
-                <button type="button" class="btn btn-secondary category-btn" data-category="Misc">Misc</button>
+					<input type="hidden" id="category" name="category" />
+				</div>
+				<div class="form-group form-check">
+					<input type="checkbox" class="form-check-input" id="favorite" name="favorite" />
+					<label class="form-check-label" for="favorite">Favorite 💖</label>
+				</div>
+				<div class="form-group">
+					<label for="description">Description:</label>
+					<textarea class="form-control" rows="5" id="description" name="description"></textarea>
+				</div>
+				<div class="mb-3">
+					<label for="image">Image(optional):</label>
+					<input type="file" id="image" name="image" /><br />
+				</div>
+				<button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
+			</form>
 
-                <input type="hidden" id="category" name="category">
-            </div>
-            <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="favorite" name="favorite">
-                <label class="form-check-label" for="favorite">Favorite 💖</label>
-            </div>
-            <div class="form-group">
-                <label for="description">Description:</label>
-                <textarea class="form-control" rows="5" id="description" name="description"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="image">Image(optional):</label>
-                <input type="file" id="image" name="image"><br>
-            </div>
-            <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
-        </form>
+			<div
+				id="successMessage"
+				style="display: none"
+				class="alert alert-success mt-3"
+				role="alert"
+			></div>
+		</div>
 
-        <div id="successMessage" style="display: none;" class="alert alert-success mt-3" role="alert"></div>
-    </div>
-
-    <script src="/scripts/firebaseAPI_BBY8.js"></script>
-    <script src="/scripts/create-items.js"></script>
-</body>
-
+		<script src="/scripts/firebaseAPI_BBY8.js"></script>
+		<script src="/scripts/create-items.js"></script>
+	</body>
 </html>
