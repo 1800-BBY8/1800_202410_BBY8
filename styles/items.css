@@ -156,3 +156,20 @@ label {
     transform: translate(-50%, -50%);
     z-index: 100;
 }
+
+@media screen and (max-width: 500px) {
+.form-buttons {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent buttons from wrapping */
+}
+
+.card-text-description {
+    width: 225px; /* Set description box width to 225px */
+}
+
+.image-container img {
+    width: 80px; /* Set image width to 100px */
+    height: 80px; /* Set image height to 100px */
+}
+}
+
